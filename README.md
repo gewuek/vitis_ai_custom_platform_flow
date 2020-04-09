@@ -14,9 +14,9 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
 
 ### Create the Vivado Hardware Component
-1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typeing "vivado" in the console.
-2. Create a Vivado project named zcu102_custom_platform.
-  a. Select File->Project->New.
-  b. Click Next.
-  c. 
+1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
+2. Create a Vivado project named zcu102_custom_platform.<br />
+  a. Select File->Project->New.<br />
+  b. Click Next.<br />
+  c. <br />
 2. 
