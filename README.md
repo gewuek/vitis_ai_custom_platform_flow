@@ -25,3 +25,7 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   g. Click Next, and your project summary should like below:<br />
   h. Then click Finish<br />
 2. Create a block design named system. <br />
+  a. Select Create Block Design
+  b. Change the design name to ```system```
+  c. Click OK.
+3. 
