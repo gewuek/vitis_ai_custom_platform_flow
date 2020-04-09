@@ -20,8 +20,8 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   b. Click Next.<br />
   c. In Project Name dialog set Project name to ```zcu102_custom_platform```.<br />
   d. Click Next.<br />
-  e. Leaving all the setting to default until you goto the Default Part dialog.
-  f. Select Boards tab and then select "Zynq UltraScale+ ZCU102 Evaluation Board"
-  g. Click Next, and your project summary should like below:
-  h. Then click Finish
+  e. Leaving all the setting to default until you goto the Default Part dialog.<br />
+  f. Select Boards tab and then select "Zynq UltraScale+ ZCU102 Evaluation Board"<br />
+  g. Click Next, and your project summary should like below:<br />
+  h. Then click Finish<br />
 2. 
