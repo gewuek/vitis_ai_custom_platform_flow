@@ -10,4 +10,5 @@ This project is trying to create a base vitis platform to run with DPU
 5. 
 
 # Vitis Platform
-The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow.
+The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:
+![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
