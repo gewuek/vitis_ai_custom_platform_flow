@@ -29,4 +29,13 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   a. Select Create Block Design.<br />
   b. Change the design name to ```system```.<br />
   c. Click ***OK***.<br />
-3. 
+3. Add MPSoC IP and auto<br />
+  a. Right click Diagram view and select ***Add IP***.<br />
+  b. Search for ```mpsoc``` and then double-click the ***Zynq UltraScale+ MPSoC*** from the IP search results.<br />
+  c. Click the ***Run Block Automation*** link to apply the board presets.<br />
+    In the Run Block Automation dialog, ensure the following is check marked:<br />      
+      * All Automation<br />
+      * Zynq_ultra_ps_e_0<br />
+      * Apply Board Presets<br />
+    
+
