@@ -25,17 +25,29 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   g. Click ***Next***, and your project summary should like below:<br />
   ![vivado_project_summary.png](/pic_for_readme/vivado_project_summary.png)<br />
   h. Then click ***Finish***<br />
-2. Create a block design named system. <br />
+3. Create a block design named system. <br />
   a. Select Create Block Design.<br />
   b. Change the design name to ```system```.<br />
   c. Click ***OK***.<br />
-3. Add MPSoC IP and auto<br />
+4. Add MPSoC IP and run block automation to configure it.<br />
   a. Right click Diagram view and select ***Add IP***.<br />
-  b. Search for ```mpsoc``` and then double-click the ***Zynq UltraScale+ MPSoC*** from the IP search results.<br />
+  b. Search for ```zynq``` and then double-click the ***Zynq UltraScale+ MPSoC*** from the IP search results.<br />
   c. Click the ***Run Block Automation*** link to apply the board presets.<br />
     In the Run Block Automation dialog, ensure the following is check marked:<br />      
       * All Automation<br />
       * Zynq_ultra_ps_e_0<br />
       * Apply Board Presets<br />
-    
+  d. Click ***OK***. You should get MPSoC block configured like below:<br />
+  ![block_automation_result.png](/pic_for_readme/block_automation_result.png)<br />
+
+#### At this stage, the Vivado block automation has added a Zynq UltraScale+ MPSoC block and applied all board presets for the ZCU102. Add the IP blocks and metadata to create a base hardware design that supports acceleration kernels.<br />
+5. Re-Customizing the Processor IP Block
+  a. Double-click the Zynq UltraScale+ MPSoC block in the IP integrator diagram.
+  b. Select ***Page Navigator > PS-PL Configuration***.
+  c. Expand ***PS-PL Configuration > PS-PL Interfaces*** by clicking the > symbol.
+  d. Expand Master Interface.
+  e. Uncheck the AXI HPM0 FPD and AXI HPM1 FPD interfaces.
+  f. Click OK.
+  g. Confirm that the IP block interfaces were removed from the Zynq UltraScale+ MPSoC symbol in your block design.
+  
 
