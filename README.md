@@ -16,17 +16,17 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
 ### Create the Vivado Hardware Component
 1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
 2. Create a Vivado project named zcu102_custom_platform.<br />
-  a. Select File->Project->New.<br />
-  b. Click Next.<br />
+  a. Select ***File->Project->New***.<br />
+  b. Click ***Next***.<br />
   c. In Project Name dialog set Project name to ```zcu102_custom_platform```.<br />
-  d. Click Next.<br />
+  d. Click ***Next***.<br />
   e. Leaving all the setting to default until you goto the Default Part dialog.<br />
-  f. Select Boards tab and then select "Zynq UltraScale+ ZCU102 Evaluation Board"<br />
-  g. Click Next, and your project summary should like below:<br />
+  f. Select ***Boards tab*** and then select ***Zynq UltraScale+ ZCU102 Evaluation Board***<br />
+  g. Click ***Next***, and your project summary should like below:<br />
   ![vivado_project_summary.png](/pic_for_readme/vivado_project_summary.png)<br />
-  h. Then click Finish<br />
+  h. Then click ***Finish***<br />
 2. Create a block design named system. <br />
   a. Select Create Block Design.<br />
   b. Change the design name to ```system```.<br />
-  c. Click OK.<br />
+  c. Click ***OK***.<br />
 3. 
