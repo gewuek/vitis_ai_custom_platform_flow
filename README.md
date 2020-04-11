@@ -114,8 +114,16 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
    o. Double-click the AXI Interrupt Controller block, set the Interrupts type to Level by changing the button to ***Manual*** and entering ```0x0``` text field, Set the Level type to High by changing the button to ***Manual*** and entering ```0xFFFFFFFF```, Set the Interrupt Output Connection to ***Single***, click ***OK***.<br />
    The configuration of axi_intc should like below:
    ![intc_settings.png](/pic_for_readme/intc_settings.png)<br /><br />
-   p. <br />
-   q. <br />
+   p. Click ***Run Connection Automation***<br />
+   q. Leave the default values for Master interface and Bridge IP.
+      - Master interface default is /zynq_ultra_ps_e_0/M_AXI_HPM0_LPD.
+      - Bridge IP default is New AXI interconnect.
+
+   r. For the clock source for driving Bridge IP/Slave interface/Master interface, select /clk_wiz_0/clk_100m. <br />
+   You can select other clock resources if you want. But for axi_lite bus for register control i would recommend a lower frequency.
+   s. Connect the interrupt_concat/dout[31:0] to the axi_intc_0/intr[0:0] input.
+   t. Connect the axi_intc_0/irq output to the Zynq UltraScale+ MPSoC pl_ps_irq0[0:0] input.
+   ![vivado_platform_connection.png](/pic_for_readme/vivado_platform_connection.png)<br /><br />
 
 
 
