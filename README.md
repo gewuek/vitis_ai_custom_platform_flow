@@ -1,4 +1,4 @@
-# vitis_ai_custom_platform
+Select the AXI HPM0 LPD check box.# vitis_ai_custom_platform
 This project is trying to create a base vitis platform to run with DPU
 
 
@@ -61,9 +61,9 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
    c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
    d. Click the Output Clocks tab.<br />
    e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows:<br />
-     - clk_100m to ```100``` MHz.<br />
-     - clk_200m to ```200``` MHz.<br />
-     - clk_400m to ```400``` MHz.<br />
+      - clk_100m to ```100``` MHz.<br />
+      - clk_200m to ```200``` MHz.<br />
+      - clk_400m to ```400``` MHz.<br />
 
    f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.<br />
    g. Click ***OK*** to close the dialog.<br />
@@ -78,13 +78,37 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
    d. Rename them as ```proc_sys_reset_100m```, ```proc_sys_reset_200m```, ```proc_sys_reset_400m```<br />
   
 8. Connect Clocks and Resets: <br />
-   a. Click Run Connection Automation, which will open a dialog that will help connect the proc_sys_reset blocks to the clocking wizard clock outputs.
-   b. Enable All Automation on the left side of the Run Connection Automation dialog box.
-   c. Select clk_in1 on clk_wiz_0, and set the Clock Source to /zynq_ultra_ps_e_0/pl_clk0
-   d. For each proc_sys_reset instance, select the slowest_sync_clk, and set the Clock Source as follows:
-    - proc_sys_reset_0 with /clk_wiz_0/clk_out1
-    - proc_sys_reset_1 with /clk_wiz_0/clk_out2
-    - proc_sys_reset_2 with /clk_wiz_0/clk_out3
+   a. Click ***Run Connection Automation***, which will open a dialog that will help connect the proc_sys_reset blocks to the clocking wizard clock outputs.<br />
+   b. Enable All Automation on the left side of the Run Connection Automation dialog box.<br />
+   c. Select clk_in1 on clk_wiz_0, and set the Clock Source to ***/zynq_ultra_ps_e_0/pl_clk0***.<br />
+   d. For each proc_sys_reset instance, select the slowest_sync_clk, and set the Clock Source as follows:<br />
+      - proc_sys_reset_100m with /clk_wiz_0/clk_100m<br />
+      - proc_sys_reset_200m with /clk_wiz_0/clk_200m<br />
+      - proc_sys_reset_400m with /clk_wiz_0/clk_400m<br />
+
+   e. On each proc_sys_reset instance, select the ***ext_reset_in***, set ***Board Part Interface*** and set the ***Select Manual Source*** to ***/zynq_ultra_ps_e_0/pl_resetn0***.<br />
+   f. Make sure all checkboxes are enabled, and click ***OK*** to close the dialog and create the connections.<br />
+   g. Connect all the ***dcm_locked*** signals on each proc_sys_reset instance to the locked signal on ***clk_wiz_0***.<br />
+   Then the connection should like below:<br />
+   ![clk_rst_connection.png](/pic_for_readme/clk_rst_connection.png)<br /><br />
+***Now we have added clock and reset IPs and configure and connect them. Some would be used in creating the hardware platform and some would be called in Vitis high level design***<br /><br />
+
+9. Add Kernel Interrupt Support<br />
+You can provide kernel interrupt support by adding an AXI interrupt controller to the base hardware design and connecting the output of the interrupt controller to the input of the processor block interrupt. The interrupt inputs of the AXI interrupt controller are initialized to a de-asserted state by wiring them to ground. When the v++ linker adds acceleration kernels to the base hardware design, the dynamic_postlink.tcl script is used to wire the interrupt output of the kernel to the AXI interrupt controller. <br />
+   a. In the block diagram, double-click the Zynq UltraScale+ MPSoC block.<br />
+   b. Select ***PS-PL Configuration > PS-PL interfaces > Master interface***.<br />
+   c. Select the ***AXI HPM0 LPD*** check box, keep the ***AXI HPM0 LPD Data width*** settings as default ***32***.<br />
+   d. Click ***OK*** to finsih the configuration.<br />
+   e. Connect ***maxihpm0_lpd_aclk*** to ***/clk_wiz_0/clk_100m***.<br />
+   f. Right click Diagram view and select ***Add IP***, search and add ***Concat*** IP.<br />
+   g. Double-click the Concat block to open the Re-Customize IP dialog box.<br />
+   h. Set the number of ports to ```32```.<br />
+   i. Right click Diagram view and select ***Add IP***, search and add ***Constant*** IP.<br />
+   j. Double-click the Constant IP, set Const Width = 1 & Const Val = 0, click ***OK***.<br />
+   k. Connect the xlconstant_0 dout[0:0] output to all 32 inputs of xlconcat_0 like below:<br />
+   ![concat_connection.png](/pic_for_readme/concat_connection.png)<br /><br />
+   l.
+   m.
 
 
 
