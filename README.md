@@ -129,7 +129,11 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
 
 ## Configuring Platform Interface Properties<br /><br />
 1. Click ***Window->Platform interfaces*** to open the ***Platform Interfaces*** Window.<br />
-2. Click ***Platform-system->zynq_ultra_ps_e_0->S_AXI_HP0_FPD***, in ***Platform interface Properties*** tab select ***Enable*** option box like below:<br />
+2. Select ***Platform-system->zynq_ultra_ps_e_0->S_AXI_HP0_FPD***, in ***Platform interface Properties*** tab enable the ***Enabled*** option like below:<br />
 ![enable_s_axi_hp0_fpd.png](/pic_for_readme/enable_s_axi_hp0_fpd.png)<br /><br />
-
+3. Select ***Options*** tab, set ***memport*** to ```S_AXI_HP``` and set ***sptag*** to ```HP0``` like below:
+![set_s_axi_hp0_fpd_options.png](/pic_for_readme/set_s_axi_hp0_fpd_options.png)<br /><br />
+4. Do the same operations for HP1, HP2, HP3, HPC1, HPC2 ports. And be noticed that the ***memport*** is set to ```S_AXI_HPC``` but actually we would use these ports with data coherency function disabled to get a high performance. So please modify it into ```S_AXI_HP``` manually.
+![set_s_axi_hpc0_fpd_options.png](/pic_for_readme/set_s_axi_hpc0_fpd_options.png)<br /><br />
+5. <br />
 
