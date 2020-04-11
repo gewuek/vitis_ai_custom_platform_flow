@@ -107,8 +107,13 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
    j. Double-click the Constant IP, set Const Width = 1 & Const Val = 0, click ***OK***.<br />
    k. Connect the xlconstant_0 dout[0:0] output to all 32 inputs of xlconcat_0 like below:<br />
    ![concat_connection.png](/pic_for_readme/concat_connection.png)<br /><br />
-   l.
-   m.
+   l. Select the ***xconstant_0*** IP block,in the Block Properties, General dialog box, change the name to ```xlconstant_gnd```.<br />
+   m. Select the ***xlconcat_0*** IP block,in the Block Properties, General dialog box, change the name to ```xlconcat_interrupt_0```.<br />
+   These names should match the ones in the dynamic_postlink.tcl script.<br />
+   n. Right click Diagram view and select ***Add IP***, search and add ***AXI Interrupt Controller*** IP.<br />
+   o. Double-click the AXI Interrupt Controller block, set the Interrupts type to Level by changing the button to Manual and entering ```0x0``` text field, Set the Level type to High by changing the button to Manual and entering ```0xFFFFFFFF```, Set the Interrupt Output Connection to ***Single***, click ***OK***.<br />   
+   p. <br />
+   q. <br />
 
 
 
