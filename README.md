@@ -34,13 +34,14 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   b. Search for ```zynq``` and then double-click the ***Zynq UltraScale+ MPSoC*** from the IP search results.<br />
   c. Click the ***Run Block Automation*** link to apply the board presets.<br />
     In the Run Block Automation dialog, ensure the following is check marked:<br />      
-      * All Automation<br />
-      * Zynq_ultra_ps_e_0<br />
-      * Apply Board Presets<br />
+      - All Automation
+      - Zynq_ultra_ps_e_0
+      - Apply Board Presets      
   d. Click ***OK***. You should get MPSoC block configured like below:<br />
   ![block_automation_result.png](/pic_for_readme/block_automation_result.png)<br />
 
 ***Note: At this stage, the Vivado block automation has added a Zynq UltraScale+ MPSoC block and applied all board presets for the ZCU102. Add the IP blocks and metadata to create a base hardware design that supports acceleration kernels.***<br /><br />
+
 5. Re-Customizing the Processor IP Block<br />
   a. Double-click the Zynq UltraScale+ MPSoC block in the IP integrator diagram.<br />
   b. Select ***Page Navigator > PS-PL Configuration***.<br />
@@ -58,10 +59,11 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   b. Search for and add a Clocking Wizard from the IP Search dialog.<br />
   c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
   d. Click the Output Clocks tab.<br />
-  e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows: <br />
-    * clk_100m to ```100``` MHz.<br />
-    * clk_200m to ```200``` MHz.<br />
-    * clk_400m to ```400``` MHz.<br />
+  e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows:<br />
+    - clk_100m to ```100``` MHz.<br />
+    - clk_200m to ```200``` MHz.<br />
+    - clk_400m to ```400``` MHz.<br />
+  
   f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.<br />
   g. Click ***OK*** to close the dialog.<br />
     The settings should like below:<br />
