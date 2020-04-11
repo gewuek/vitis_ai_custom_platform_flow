@@ -50,5 +50,19 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   f. Click OK.<br />
   g. Confirm that the IP block interfaces were removed from the Zynq UltraScale+ MPSoC symbol in your block design.<br />
   ![hp_removed.png](/pic_for_readme/hp_removed.png)<br />
- 
+  
+***Note: This is a little different from traditional Vivado design flow. When trying to make AXI interfaces available in Vitis design you should disable these interface at Vivado IPI platform and enable them at platform interface properties. We will show you how to do that later***<br><br />
+
+6. Add clock block<br />
+  a. Right click Diagram view and select ***Add IP***.<br />
+  b. Search for and add a Clocking Wizard from the IP Search dialog.<br />
+  c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
+  d. Click the Output Clocks tab.<br />
+  e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows: <br />
+  * clk_100m to 100 MHz.<br />
+  * clk_200m to 200 MHz.<br />
+  * clk_400m to 400 MHz.<br />
+  The settings should like below:<br />
+  ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
+***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later***<br><br />
 
