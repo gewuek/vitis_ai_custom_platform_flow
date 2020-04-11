@@ -62,10 +62,10 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
     * clk_100m to ```100``` MHz.<br />
     * clk_200m to ```200``` MHz.<br />
     * clk_400m to ```400``` MHz.<br />
-  f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.
-  g. Click ***OK*** to close the dialog.
-  The settings should like below:<br />
-  ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
+  f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.<br />
+  g. Click ***OK*** to close the dialog.<br />
+    The settings should like below:<br />
+    ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
 ***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.***<br><br />
 
 7. Add the Processor System Reset blocks:<br />
