@@ -59,9 +59,9 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
   d. Click the Output Clocks tab.<br />
   e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows: <br />
-  * clk_100m to ```100`` MHz.<br />
-  * clk_200m to ```200``` MHz.<br />
-  * clk_400m to ```400``` MHz.<br />
+    * clk_100m to ```100``` MHz.<br />
+    * clk_200m to ```200``` MHz.<br />
+    * clk_400m to ```400``` MHz.<br />
   f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.
   g. Click ***OK*** to close the dialog.
   The settings should like below:<br />
