@@ -5,8 +5,9 @@ This project is trying to create a base vitis platform to run with DPU
 # Vitis AI platform development<br /><br />
 1. Vitis Platform<br />
 2. Create the Vivado Hardware Component<br />
-3. Create the PetaLinux Software Componemt<br />
-4. Create the platform<br />
+3. Configuring Platform Interface Properties<br />
+4. Create the PetaLinux Software Componemt<br />
+5. Create the platform<br />
 5. 
 
 ## Vitis Platform<br /><br />
@@ -127,6 +128,8 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
 ***Note: Now we have finished the IPI design input, let's set some platform parameters and generate the DSA***<br /><br /><br />
 
 ## Configuring Platform Interface Properties<br /><br />
-
+1. Click ***Window->Platform interfaces*** to open the ***Platform Interfaces*** Window.<br />
+2. Click ***Platform-system->zynq_ultra_ps_e_0->S_AXI_HP0_FPD***, in ***Platform interface Properties*** tab select ***Enable*** option box like below:<br />
+![enable_s_axi_hp0_fpd.png](/pic_for_readme/enable_s_axi_hp0_fpd.png)<br /><br />
 
 
