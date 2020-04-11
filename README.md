@@ -41,13 +41,14 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   ![block_automation_result.png](/pic_for_readme/block_automation_result.png)<br />
 
 #### At this stage, the Vivado block automation has added a Zynq UltraScale+ MPSoC block and applied all board presets for the ZCU102. Add the IP blocks and metadata to create a base hardware design that supports acceleration kernels.<br />
-5. Re-Customizing the Processor IP Block
-  a. Double-click the Zynq UltraScale+ MPSoC block in the IP integrator diagram.
-  b. Select ***Page Navigator > PS-PL Configuration***.
-  c. Expand ***PS-PL Configuration > PS-PL Interfaces*** by clicking the > symbol.
-  d. Expand Master Interface.
-  e. Uncheck the AXI HPM0 FPD and AXI HPM1 FPD interfaces.
-  f. Click OK.
-  g. Confirm that the IP block interfaces were removed from the Zynq UltraScale+ MPSoC symbol in your block design.
-  
+5. Re-Customizing the Processor IP Block<br />
+  a. Double-click the Zynq UltraScale+ MPSoC block in the IP integrator diagram.<br />
+  b. Select ***Page Navigator > PS-PL Configuration***.<br />
+  c. Expand ***PS-PL Configuration > PS-PL Interfaces*** by clicking the > symbol.<br />
+  d. Expand Master Interface.<br />
+  e. Uncheck the AXI HPM0 FPD and AXI HPM1 FPD interfaces.<br />
+  f. Click OK.<br />
+  g. Confirm that the IP block interfaces were removed from the Zynq UltraScale+ MPSoC symbol in your block design.<br />
+  ![hp_removed.png](/pic_for_readme/hp_removed.png)<br />
+ 
 
