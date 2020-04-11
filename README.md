@@ -40,7 +40,7 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   d. Click ***OK***. You should get MPSoC block configured like below:<br />
   ![block_automation_result.png](/pic_for_readme/block_automation_result.png)<br />
 
-***Note: At this stage, the Vivado block automation has added a Zynq UltraScale+ MPSoC block and applied all board presets for the ZCU102. Add the IP blocks and metadata to create a base hardware design that supports acceleration kernels.***<br />
+***Note: At this stage, the Vivado block automation has added a Zynq UltraScale+ MPSoC block and applied all board presets for the ZCU102. Add the IP blocks and metadata to create a base hardware design that supports acceleration kernels.***<br /><br />
 5. Re-Customizing the Processor IP Block<br />
   a. Double-click the Zynq UltraScale+ MPSoC block in the IP integrator diagram.<br />
   b. Select ***Page Navigator > PS-PL Configuration***.<br />
