@@ -53,16 +53,36 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   
 ***Note: This is a little different from traditional Vivado design flow. When trying to make AXI interfaces available in Vitis design you should disable these interface at Vivado IPI platform and enable them at platform interface properties. We will show you how to do that later***<br><br />
 
-6. Add clock block<br />
+6. Add clock block:<br />
   a. Right click Diagram view and select ***Add IP***.<br />
   b. Search for and add a Clocking Wizard from the IP Search dialog.<br />
   c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
   d. Click the Output Clocks tab.<br />
   e. Enable clk_out1 through clk_out3 in the Output Clock column, rename them as ```clk_100m```, ```clk_200m```, ```clk_400m``` and set the Requested Output Freq as follows: <br />
-  * clk_100m to 100 MHz.<br />
-  * clk_200m to 200 MHz.<br />
-  * clk_400m to 400 MHz.<br />
+  * clk_100m to ```100`` MHz.<br />
+  * clk_200m to ```200``` MHz.<br />
+  * clk_400m to ```400``` MHz.<br />
+  f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.
+  g. Click ***OK*** to close the dialog.
   The settings should like below:<br />
   ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
-***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later***<br><br />
+***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.***<br><br />
+
+7. Add the Processor System Reset blocks:<br />
+  a. Right click Diagram view and select ***Add IP***.<br />
+  b. Search for and add a Processor System Reset from the IP Search dialog<br />
+  c. Add 2 more Processor System Reset blocks, using the previous step; or select the proc_sys_reset_0 block and Copy (Ctrl-C) and Paste (Ctrl-V) it four times in the block diagram<br />
+  d. Rename them as ```proc_sys_reset_100m```, ```proc_sys_reset_200m```, ```proc_sys_reset_400m```<br />
+  
+8. Connect Clocks and Resets: <br />
+  a. Click Run Connection Automation, which will open a dialog that will help connect the proc_sys_reset blocks to the clocking wizard clock outputs.
+  b. Enable All Automation on the left side of the Run Connection Automation dialog box.
+  c. Select clk_in1 on clk_wiz_0, and set the Clock Source to /zynq_ultra_ps_e_0/pl_clk0
+  d. For each proc_sys_reset instance, select the slowest_sync_clk, and set the Clock Source as follows:
+    proc_sys_reset_0 with /clk_wiz_0/clk_out1
+    proc_sys_reset_1 with /clk_wiz_0/clk_out2
+    proc_sys_reset_2 with /clk_wiz_0/clk_out3
+    proc_sys_reset_3 with /clk_wiz_0/clk_out4
+    proc_sys_reset_4 with /clk_wiz_0/clk_out5
+
 
