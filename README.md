@@ -2,18 +2,18 @@ Select the AXI HPM0 LPD check box.# vitis_ai_custom_platform
 This project is trying to create a base vitis platform to run with DPU
 
 
-# Vitis AI platform development
+# Vitis AI platform development<br /><br />
 1. Vitis Platform<br />
 2. Create the Vivado Hardware Component<br />
 3. Create the PetaLinux Software Componemt<br />
 4. Create the platform<br />
 5. 
 
-### Vitis Platform
+## Vitis Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
 
-### Create the Vivado Hardware Component
+## Create the Vivado Hardware Component<br /><br />
 1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
 2. Create a Vivado project named zcu102_custom_platform.<br />
    a. Select ***File->Project->New***.<br />
@@ -124,7 +124,9 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
    s. Connect the interrupt_concat/dout[31:0] to the axi_intc_0/intr[0:0] input.
    t. Connect the axi_intc_0/irq output to the Zynq UltraScale+ MPSoC pl_ps_irq0[0:0] input.
    ![vivado_platform_connection.png](/pic_for_readme/vivado_platform_connection.png)<br /><br />
-***Note: Now we have finished the IPI design input, let's set some platform parameters and generate the DSA***
+***Note: Now we have finished the IPI design input, let's set some platform parameters and generate the DSA***<br /><br /><br />
+
+## Configuring Platform Interface Properties<br /><br />
 
 
 
