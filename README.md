@@ -167,11 +167,18 @@ set_property platform.post_sys_link_tcl_hook ./dynamic_postlink.tcl [current_pro
 11. In your Vivado project, use the ***Tcl console*** to navigate to the xsa_gen folder, and run ```source ./xsa.tcl``` command.
 ![run_xsa_tcl.png](/pic_for_readme/run_xsa_tcl.png)<br /><br />
 12. Right-click and select ***Validate Design*** on ***IP integrator diagram***<br />
-13. Select the Zynq UltraScale+ MPSoC IP block and set SELECTED_SIM_MODEL to tlm in the Block Properties view.<br />
+13. Select the Zynq UltraScale+ MPSoC IP block and set ***SELECTED_SIM_MODEL*** to ```tlm``` in the Block Properties view.<br />
 14. Create the HDL wrapper:<br />
     a. Right-click ***system.bd*** in the Block Design, Sources view and select Create HDL Wrapper.<br />
     b. Select Let Vivado manage wrapper and ***auto-update***.<br />
     c. Click ***OK***.<br />
 
 15. Right-click ***system.bd*** in the Block Design, Sources view and select ***Generate Output Products***.<br />
+16. Select ***File->Export->Export Hardware...***<br />
+17. Set ***XSA file name*** to ```zcu102_custom_platform```, set the ***Export to*** to ```<your_vivado_project_dir>/xsa_gen/```(which you generated before) and click ***OK***.<br />
+Or just call the tcl command in tcl console like ```write_hw_platform -fixed -force  -file <your_vivado_project_dir>/xsa_gen/zcu102_custom_platform.xsa```.<br />
+18. Check the ***<your_vivado_project_dir>/xsa_gen*** folder, you should find the ***zcu102_custom_platform.xsa*** generated there.<br />
+
+*** Now we finish the Hardware platform creation flow, then we should go to the Software platform creation***<br /><br />
+
 
