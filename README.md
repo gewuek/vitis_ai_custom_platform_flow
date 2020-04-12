@@ -56,7 +56,7 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
   
 ***Note: This is a little different from traditional Vivado design flow. When trying to make AXI interfaces available in Vitis design you should disable these interface at Vivado IPI platform and enable them at platform interface properties. We will show you how to do that later***<br><br />
 
-6. Add clock block:<br />
+6. Add clock block:<br />write_hw_platform -fixed -force  -file /home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_custom_platform/xsa_gen/zcu102_custom_platform.xsa
    a. Right click Diagram view and select ***Add IP***.<br />
    b. Search for and add a Clocking Wizard from the IP Search dialog.<br />
    c. Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
@@ -179,6 +179,6 @@ set_property platform.post_sys_link_tcl_hook ./dynamic_postlink.tcl [current_pro
 Or just call the tcl command in tcl console like ```write_hw_platform -fixed -force  -file <your_vivado_project_dir>/xsa_gen/zcu102_custom_platform.xsa```.<br />
 18. Check the ***<your_vivado_project_dir>/xsa_gen*** folder, you should find the ***zcu102_custom_platform.xsa*** generated there.<br />
 
-*** Now we finish the Hardware platform creation flow, then we should go to the Software platform creation***<br /><br />
+***Now we finish the Hardware platform creation flow, then we should go to the Software platform creation***<br /><br />
 
 
