@@ -5,7 +5,7 @@ This project is trying to create a base vitis platform to run with DPU
 # Vitis AI platform development<br /><br />
 1. Vitis Platform<br />
 2. Create the Vivado Hardware Component<br />
-3. Configuring Platform Interface Properties<br />
+3. Configuring Platform Interface Properties and Generate XSA<br />
 4. Create the PetaLinux Software Component<br />
 5. Create the platform<br />
 5. 
@@ -14,7 +14,7 @@ This project is trying to create a base vitis platform to run with DPU
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
 
-## Create the Vivado Hardware Component<br /><br />
+## Create the Vivado Hardware Component and Generate XSA<br /><br />
 1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
 2. Create a Vivado project named zcu102_custom_platform.<br />
    a. Select ***File->Project->New***.<br />
