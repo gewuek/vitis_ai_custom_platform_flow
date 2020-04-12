@@ -139,5 +139,32 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
 6. Enable the ***M_AXI_HPM0_FPD*** and ***M_AXI_HPM1_FPD*** ports, set ***sptag*** name to ```HPM0_FPD```, ```HPM1_FPD``` and ***memport*** to ```M_AXI_GP```.<br />
 ***Now we enable AXI master/slave interfaces that can be used for Vitis tools on the platform***<br /><br />
 
+7. Create a ```xsa_gen``` folder inside your Vivado project.<br />
+8. Copy the https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_dpu/vivado/dynamic_postlink.tcl file into that ***xsa_gen*** folder.<br />
+Or you can just find this file from any of the MPSoC official platform example.<br />
+9. Create a file named ```xsa_gen.tcl``` inside the ***xsa_gen*** folder.<br />
+10. Copy the following commands into the xsa_gen.tcl file and save the file.<br />
+```
+# Set the platform design intent properties
+set_property platform.design_intent.embedded true [current_project]
+set_property platform.design_intent.server_managed false [current_project]
+set_property platform.design_intent.external_host false [current_project]
+set_property platform.design_intent.datacenter false [current_project]
+
+get_property platform.design_intent.embedded [current_project]
+get_property platform.design_intent.server_managed [current_project]
+get_property platform.design_intent.external_host [current_project]
+get_property platform.design_intent.datacenter [current_project]
+
+# Set the platform default output type property
+set_property platform.default_output_type "sd_card" [current_project]
+
+get_property platform.default_output_type [current_project]
+
+# Add the platform property to use dynamic_postlink.tcl during the v++ link
+set_property platform.post_sys_link_tcl_hook ./dynamic_postlink.tcl [current_project]
+```
+
+
 
 
