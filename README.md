@@ -182,6 +182,6 @@ Or just call the tcl command in tcl console like:<br />
 
 ***Now we finish the Hardware platform creation flow, then we should go to the Software platform creation***<br /><br />
 
-##Create the PetaLinux Software Component<br /><br />
+## Create the PetaLinux Software Component<br /><br />
 A Vitis platform requires software components. For Linux, the PetaLinux tools are invoked outside of the Vitis tools by the developer to create the necessary Linux image,Executable and Linkable Format (ELF) files, and sysroot with XRT support. Yocto or third-party Linux development tools can also be used as long as they produce the same Linux output products as PetaLinux. <br />
 1. <br />
