@@ -194,22 +194,22 @@ A Vitis platform requires software components. For Linux, the PetaLinux tools ar
 ***Note: If you are using a Xilinx development board, it is recomended to modify the machine name so that the board confiugrations would be involved in the DTS auto-generation. Otherwise you would need to configure the associated settings(e.g. the PHY information DTS node) by yourself manually.***<br />
 4. Add user packages for XRT support by appending the CONFIG_x lines below to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
 ```
-CONFIG_xrt<br />
-CONFIG_xrt-dev<br />
-CONFIG_zocl<br />
-CONFIG_opencl-clhpp-dev<br />
-CONFIG_opencl-headers-dev<br />
-CONFIG_packagegroup-petalinux-opencv<br />
+CONFIG_xrt
+CONFIG_xrt-dev
+CONFIG_zocl
+CONFIG_opencl-clhpp-dev
+CONFIG_opencl-headers-dev
+CONFIG_packagegroup-petalinux-opencv
 ```
 5. Add user packages for DPU support by adding more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
 ```
-CONFIG_glog<br />
-CONFIG_gtest<br />
-CONFIG_json-c<br />
-CONFIG_protobuf<br />
-CONFIG_python3-pip<br />
-CONFIG_apt<br />
-CONFIG_dpkg<br />
+CONFIG_glog
+CONFIG_gtest
+CONFIG_json-c
+CONFIG_protobuf
+CONFIG_python3-pip
+CONFIG_apt
+CONFIG_dpkg
 ```
 6. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
 ![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
@@ -217,21 +217,21 @@ CONFIG_dpkg<br />
 7. Copy ***petalinux/project-spec/meta-user/recipes-ai/opencv*** folder to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
 8. Add custom opencv recipe. Edit ***<your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig*** and add the opencv recipe at the end:<br />
 ```
-COFIG_opencv<br />
+COFIG_opencv
 ```
 9. Run ```petelinux-config -c rootfs``` and select ***user packages***, enable ***opencv***, save and exit.<br />
 10. To generate sysroot (PetaLinux SDK) for building Vitis AI applications add more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br /> 
 ```
-CONFIG_gtest-staticdev<br /> 
-CONFIG_json-c-dev<br /> 
-CONFIG_protobuf-dev<br /> 
-CONFIG_protobuf-c<br /> 
-CONFIG_libeigen-dev<br /> 
+CONFIG_gtest-staticdev
+CONFIG_json-c-dev
+CONFIG_protobuf-dev
+CONFIG_protobuf-c
+CONFIG_libeigen-dev
 ```
 11. To enable native compile on target board add more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br /> 
 ```
-CONFIG_packagegroup-petalinux-self-hosted<br /> 
-CONFIG_cmake<br /> 
+CONFIG_packagegroup-petalinux-self-hosted
+CONFIG_cmake 
 ```
 12. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.<br /> 
 
