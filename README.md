@@ -247,13 +247,31 @@ Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
 CPU IDLE would cause CPU IDLE when JTAG is connected. So it is recommended to disable the selection.<br /> 
     a) Type ```petalinux-config -c kernel```<br /> 
-    b) Select ***Device Drivers > Generic Driver Options > DMA Contiguous Memory Allocator > Size in Mega Bytes***.
+    b) Select ***Device Drivers > Generic Driver Options > DMA Contiguous Memory Allocator > Size in Mega Bytes***.<br />
     c) Press the ```Enter``` key and change 256 to 512.<br /> 
-Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu selection for:
-       - ***CPU Power Mangement > CPU Idle > CPU idle PM support***
-       - ***CPU Power Management > CPU Frequency scaling > CPU Frequency scaling***
+Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu selection for:<br />
+       - ***CPU Power Mangement > CPU Idle > CPU idle PM support***<br />
+       - ***CPU Power Management > CPU Frequency scaling > CPU Frequency scaling***<br />
 
-15. 
+15. Update the Device tree to include the zocl driver by appending the text below to the petalinux/project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi file. 
+```
+&amba {
+	zyxclmm_drm {
+		compatible = "xlnx,zocl";
+		status = "okay";
+		interrupt-parent = <&axi_intc_0>;
+		interrupts = <0  4>, <1  4>, <2  4>, <3  4>,
+			     <4  4>, <5  4>, <6  4>, <7  4>,
+			     <8  4>, <9  4>, <10 4>, <11 4>,
+			     <12 4>, <13 4>, <14 4>, <15 4>,
+			     <16 4>, <17 4>, <18 4>, <19 4>,
+			     <20 4>, <21 4>, <22 4>, <23 4>,
+			     <24 4>, <25 4>, <26 4>, <27 4>,
+			     <28 4>, <29 4>, <30 4>, <31 4>;
+	};
+};
+
+```
 
 
 
