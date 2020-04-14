@@ -239,9 +239,11 @@ CONFIG_cmake
 
 Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is used to replace Dropbear, it could achieve 4x times faster data transmission speed (tested on 1Gbps Ethernet environment). Since Vitis-AI applications may use remote display feature to show machine learning results, using OpenSSH can improve the display experience.<br /> 
     a) Run ```petalinux-config -c rootfs```.<br /> 
-    b) Run into ***Image Features***.<br /> 
+    b) Go to ***Image Features***.<br /> 
     c) Disable ***ssh-server-dropbear*** and enable ***ssh-server-openssh***.<br /> 
     ![ssh_settings.png](/pic_for_readme/ssh_settings.png)<br /><br />
+    d) Go to ***Filesystem Packages-> misc->packagegroup-core-ssh-dropbear*** and disable ***packagegroup-core-ssh-dropbear**.<br />
+    e) Go to ***Filesystem Packages  -> console  -> network -> openssh** and enable ***openssh***.<br />    
     
 14. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
@@ -286,7 +288,8 @@ to<br />
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
 #undef CONFIG_SYS_BOOTMAPSZ
 ```
-
+17. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.
+18. 
 
 
 
