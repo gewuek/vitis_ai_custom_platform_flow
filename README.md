@@ -239,5 +239,5 @@ CONFIG_cmake
 
 Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is used to replace Dropbear, it could achieve 4x times faster data transmission speed (tested on 1Gbps Ethernet environment). Since Vitis-AI applications may use remote display feature to show machine learning results, using OpenSSH can improve the display experience.<br /> 
 
-    a) Run ```petalinux-config -c rootfs```.<br /> 
-    b) Disable dropbear and enable openssh.<br /> 
+    a. Run ```petalinux-config -c rootfs```.<br /> 
+    b. Disable dropbear and enable openssh.<br /> 
