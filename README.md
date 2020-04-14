@@ -68,7 +68,7 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
 
    f. At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.<br />
    g. Click ***OK*** to close the dialog.<br />
-  The settings should like below:<br />
+  The settings should like below:<br />#define CONFIG_SYS_BOOTM_LEN 0xF000000
   ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
 ***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.***<br><br />
 
@@ -276,11 +276,14 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
 16. Modify the u-boot settings:<br />
 Because we didn't use SD card to store the rootfs files. So that u-boot need to load a large image. We need to modify the u-boot so that it can load larger image.
 Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and modify:<br />
+
 ```#define CONFIG_SYS_BOOTM_LEN 0xF000000```<br />
 to<br />
 ```
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
 #undef CONFIG_SYS_BOOTMAPSZ
-```<br />
+```
+<br />
+
 
 
