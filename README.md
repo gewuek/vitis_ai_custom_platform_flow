@@ -253,7 +253,7 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
        - ***CPU Power Mangement > CPU Idle > CPU idle PM support***<br />
        - ***CPU Power Management > CPU Frequency scaling > CPU Frequency scaling***<br />
 
-15. Update the Device tree to include the zocl driver by appending the text below to the petalinux/project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi file. 
+15. Update the Device tree to include the zocl driver by appending the text below to the ***project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi*** file. 
 ```
 &amba {
 	zyxclmm_drm {
@@ -273,5 +273,14 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
 
 ```
 
+16. Modify the u-boot settings:<br />
+Because we didn't use SD card to store the rootfs files. So that u-boot need to load a large image. We need to modify the u-boot so that it can load larger image.
+Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and modify:<br />
+```#define CONFIG_SYS_BOOTM_LEN 0xF000000```<br />
+to<br />
+```
+#define CONFIG_SYS_BOOTM_LEN 0x80000000
+#undef CONFIG_SYS_BOOTMAPSZ
+```<br />
 
 
