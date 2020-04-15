@@ -294,12 +294,32 @@ to<br />
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
 #undef CONFIG_SYS_BOOTMAPSZ
 ```
-18. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.
-19. Create a sysroot self-installer for the target Linux system:
+18. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.<br />
+19. Create a sysroot self-installer for the target Linux system:<br />
 ```
 cd images/linux
 petalinux-build --sdk
 ```
+***Note: We would store all the necessary files for Vitis platform creation flow. Here we name it ```zcu102_dpu_pkg ```. Then we create a pfm folder inside.***<br />
+20. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
+21. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
+    - image.ub
+    - zynqmp_fsbl.elf
+    - pmufw.elf
+    - bl31.elf
+    - u-boot.elf
 
-
+22. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
+```
+/* linux */
+ the_ROM_image:
+ {
+ 	[fsbl_config] a53_x64
+ 	[bootloader] <zynqmp_fsbl.elf>
+ 	[pmufw_image] <pmufw.elf>
+ 	[destination_device=pl] <bitstream>
+ 	[destination_cpu=a53-0, exception_level=el-3, trustzone] <bl31.elf>
+ 	[destination_cpu=a53-0, exception_level=el-2] <u-boot.elf>
+ }
+```
 
