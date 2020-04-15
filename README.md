@@ -287,8 +287,7 @@ Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and mo
 
 ```
 #define CONFIG_SYS_BOOTM_LEN 0xF000000
-```Creating the Platform
-
+```
 to<br />
 ```
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
