@@ -352,7 +352,7 @@ petalinux-build --sdk
 10. Click the linux on psu_cortexa53 domain, browse to the locations and select the directory or file needed to complete the dialog box for the following:
 ```
 Linux Build Output:
-    Browse to zcu102_dpu_pkg/pfm/boot and click OK.
+    Browse to ***zcu102_dpu_pkg/pfm/boot*** and click OK.
 Bif file:
     Browse to zcu102_dpu_pkg/pfm/boot/linux.bif file and click OK.
 
