@@ -3,14 +3,14 @@ This project is trying to create a base vitis platform to run with DPU
 
 
 # Vitis AI platform development<br /><br />
-1. Vitis Platform<br />
+1. Vitis Acceleration Platform<br />
 2. Create the Vivado Hardware Component<br />
 3. Configuring Platform Interface Properties and Generate XSA<br />
 4. Create the PetaLinux Software Component<br />
-5. Create the platform<br />
+5. Create the Vitis Platform<br />
 5. 
 
-## Vitis Platform<br /><br />
+## Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
 
@@ -287,7 +287,7 @@ Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and mo
 
 ```
 #define CONFIG_SYS_BOOTM_LEN 0xF000000
-```
+```Creating the Platform
 
 to<br />
 ```
@@ -322,4 +322,10 @@ petalinux-build --sdk
  	[destination_cpu=a53-0, exception_level=el-2] <u-boot.elf>
  }
 ```
+***Note: Now we prepare the HW platform and SW platform, next we would create a Vitis Platform.***
+
+## Create the Vitis Platform<br /><br />
+
+1. Source <Vitis_Install_Directory>/settings64.sh, and call Vitis out by typing "vitis" in the console.<br />
+2. 
 
