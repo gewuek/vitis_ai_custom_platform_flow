@@ -9,7 +9,7 @@ This project is trying to create a base vitis platform to run with DPU
 4. Create the PetaLinux Software Component<br />
 5. Create the Vitis Platform<br />
 6. Prepare for the DPU Kernel<br />
-7. Create a Vitis application<br />
+7. Create and Build a Vitis application<br />
 
 ## Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
@@ -415,5 +415,13 @@ prop=run.impl_1.strategy=Performance_Explore
 9. Generate the XO file by typing: ```make binary_container_1/dpu.xo DEVICE=zcu102_vai_custom```.<br />
 10. Verify if the XO file is generated here: ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/dpu.xo***.<br />
 
-## Create a Vitis application
-
+## Create and Build a Vitis application
+1. Open Vitis workspace you were using before.<br />
+2. Select ***File -> New -> Application Project***.<br />
+3. Name the project ```hello_dpu```, use ***new system project** and use the default name, click ***next***.<br />
+4. Select ***zcu102_vai_custom*** as platform, click ***next***.<br />
+5. Set Domain to ***linux on psu_cortexa53***, Language to ***C++*** and click ***next***.<br />
+6. Click ***finish*** to generate the application.<br />
+7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
+![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
+8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
