@@ -9,6 +9,7 @@ This project is trying to create a base vitis platform to run with DPU
 4. Create the PetaLinux Software Component<br />
 5. Create the Vitis Platform<br />
 6. Prepare for the DPU Kernel<br />
+7. Create a Vitis application<br />
 
 ## Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
@@ -191,7 +192,7 @@ A Vitis platform requires software components. For Linux, the PetaLinux tools ar
 ```cd zcu102_custom_plnx```<br />
 ```petalinux-config --get-hw-description=<you_vivado_design_dir>/xsa_gen/```<br />
 3. A petalinux-cofig menu would be launched, select ***DTG Settings->MACHINE_NAME***, modify it to ```zcu102-rev1.0```.<br />
-***Note: If you are using a Xilinx development board, it is recomended to modify the machine name so that the board confiugrations would be involved in the DTS auto-generation. Otherwise you would need to configure the associated settings(e.g. the PHY information DTS node) by yourself manually.***<br />
+***Note: If you are using a Xilinx development board, izcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1t is recomended to modify the machine name so that the board confiugrations would be involved in the DTS auto-generation. Otherwise you would need to configure the associated settings(e.g. the PHY information DTS node) by yourself manually.***<br />
 4. Add user packages for XRT support by appending the CONFIG_x lines below to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
 ```
 CONFIG_xrt
@@ -412,7 +413,7 @@ prop=run.impl_1.strategy=Performance_Explore
 ```
 
 9. Generate the XO file by typing: ```make binary_container_1/dpu.xo DEVICE=zcu102_vai_custom```.<br />
+10. Verify if the XO file is generated here: ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/dpu.xo***.<br />
 
-
-
+## Create a Vitis application
 
