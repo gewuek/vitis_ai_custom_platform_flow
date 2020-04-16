@@ -8,7 +8,7 @@ This project is trying to create a base vitis platform to run with DPU
 3. Configuring Platform Interface Properties and Generate XSA<br />
 4. Create the PetaLinux Software Component<br />
 5. Create the Vitis Platform<br />
-5. 
+6. Prepare for the DPU Kernel<br />
 
 ## Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
@@ -365,5 +365,54 @@ Sysroot:
 ![vitis_linux_config.png](/pic_for_readme/vitis_linux_config.png)<br /><br />
 11. Click ***zcu102_vai_custom*** project in the Vitis Explorer view, click the ***Build*** button to generate the platform.
 ![build_vitis_platform.png](/pic_for_readme/build_vitis_platform.png)<br /><br />
+***Note: he generated platform is placed in the export directory. BSP and source files are also provided for re-building the FSBL and PMU if desired and are associated with the platform. The platform is ready to be used for application development.***<br />
 
-12. 
+## Prepare for the DPU Kernel<br /><br />
+
+1. Download Vitis AI by calling command ```git clone https://github.com/Xilinx/Vitis-AI.git```.<br />
+2. Navigate to the repository:```cd Vitis-AI```, set the tag to proper tag(here we use ***v1.1***) by typing: ```git checkout v1.1```.<br />
+3. If you don't want to destroy the TRD reference design. Copy ***DPU-TRD*** folder into another directory. For example I would copy that into my ***zcu102_dpu_pkg*** foler: ```cp -r DPU-TRD ~/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/```<br />
+4. Source Vitis tools setting sh file: ```source <vitis install path>/Vitis/2019.2/settings64.sh```.<br />
+5. Source XRT sh file:```source opt/xilinx/xrt/setup.sh```.<br />
+6. Export SDX_PLATFORM with the directory of the custom platform xpfm file which you created before. Here in my project it would be: ```export SDX_PLATFORM=/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/zcu102_vai_custom/export/zcu102_vai_custom/zcu102_vai_custom.xpfm```. Remember now this custom platform name is ***zcu102_vai_custom***.<br />
+7. Navigate to the copy of the ***DPU-TRD*** folder, then go to the ***./prj/Vitis*** foler.<br />
+There are 2 files can be used to modify the DPU settings: The ***config_file/prj_config*** file is for DPU connection in Vitis project and the dpu_conf.vh is for other DPU configurations. Here we would modify the prj_config so that 2 DPU cores are enabled. And we would keep dpu_conf.vh in default.<br />
+8. Modify the ***config_file/prj_config*** like below:<br />
+```
+
+[clock]
+
+id=0:dpu_xrt_top_1.aclk
+id=1:dpu_xrt_top_1.ap_clk_2
+id=0:dpu_xrt_top_2.aclk
+id=1:dpu_xrt_top_2.ap_clk_2
+
+[connectivity]
+
+sp=dpu_xrt_top_1.M_AXI_GP0:HPM0_LPD
+sp=dpu_xrt_top_1.M_AXI_HP0:HP0
+sp=dpu_xrt_top_1.M_AXI_HP2:HP1
+sp=dpu_xrt_top_2.M_AXI_GP0:HPM0_LPD
+sp=dpu_xrt_top_2.M_AXI_HP0:HP2
+sp=dpu_xrt_top_2.M_AXI_HP2:HP3
+
+
+nk=dpu_xrt_top:2
+
+[advanced]
+misc=:solution_name=link
+param=compiler.addOutputTypes=sd_card
+
+#param=compiler.skipTimingCheckAndFrequencyScaling=1
+
+[vivado]
+prop=run.impl_1.strategy=Performance_Explore
+#param=place.runPartPlacer=0
+
+```
+
+9. Generate the XO file by typing: ```make binary_container_1/dpu.xo DEVICE=zcu102_vai_custom```.<br />
+
+
+
+
