@@ -175,11 +175,10 @@ set_property platform.post_sys_link_tcl_hook ./dynamic_postlink.tcl [current_pro
     c. Click ***OK***.<br />
 
 15. Right-click ***system.bd*** in the Block Design, Sources view and select ***Generate Output Products***.<br />
-16. Select ***File->Export->Export Hardware...***<br />
-17. Set ***XSA file name*** to ```zcu102_custom_platform```, set the ***Export to*** to ```<your_vivado_project_dir>/xsa_gen/```(which you generated before) and click ***OK***.<br />
-Or just call the tcl command in tcl console like:<br />
-```write_hw_platform -fixed -force  -file <your_vivado_project_dir>/xsa_gen/zcu102_custom_platform.xsa```<br />
-18. Check the ***<your_vivado_project_dir>/xsa_gen*** folder, you should find the ***zcu102_custom_platform.xsa*** generated there.<br />
+16. Type the tcl command in tcl console like:<br />
+```write_hw_platform -unified -force -file <your_vivado_project_dir>/xsa_gen/zcu102_custom_platform.xsa```<br />
+If you use ***export Hardware*** function in Vivado GUI it would add ***-fixed*** option which would generate a XSA for traditional embedded platform which can't add DPU acceleration kernel here.
+17. Check the ***<your_vivado_project_dir>/xsa_gen*** folder, you should find the ***zcu102_custom_platform.xsa*** generated there.<br />
 
 ***Now we finish the Hardware platform creation flow, then we should go to the Software platform creation***<br /><br />
 
