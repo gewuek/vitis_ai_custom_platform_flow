@@ -425,3 +425,4 @@ prop=run.impl_1.strategy=Performance_Explore
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
 8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
+9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.
