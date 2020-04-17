@@ -419,9 +419,10 @@ prop=run.impl_1.strategy=Performance_Explore
 2. Select ***File -> New -> Application Project***.<br />
 3. Name the project ```hello_dpu```, use ***new system project** and use the default name, click ***next***.<br />
 4. Select ***zcu102_vai_custom*** as platform, click ***next***.<br />
-5. Set Domain to ***linux on psu_cortexa53***, Language to ***C++*** and click ***next***.<br />
-6. Click ***finish*** to generate the application.<br />
+5. Set Domain to ***linux on psu_cortexa53*** and click ***next***.<br />
+6. Select ***Empty Application*** and click ***finish*** to generate the application.<br />
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
 8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
 9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.
+10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** to 
