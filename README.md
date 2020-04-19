@@ -441,5 +441,7 @@ opencv_highgui
 opencv_imgproc
 opencv_videoio
 ```
+![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
+17. 
 
 
