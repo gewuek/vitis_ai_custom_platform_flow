@@ -426,6 +426,20 @@ prop=run.impl_1.strategy=Performance_Explore
 8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
 9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.<br />
 10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** from ***Emulation-SW*** to ***Hardware***.<br />
-11. Under Hardware Functions, click the lightning bolt logo to add a new accelerator.<br />
+11. Under Hardware Functions, click the lightning bolt logo to ***Add Hardware Function***.<br />
 ![add_hardware_function.png](/pic_for_readme/add_hardware_function.png)<br /><br />
-12. 
+12. Select the "dpu_xrt_top" included as part of the dpu.xo file that we included earlier.<br />
+13. Click on binary_container_1 to change the name to dpu.<br />
+14. Right click on "dpu", select ***Edit V++ Options***, add ```--config ../src/prj_config``` as ***V++ Options***, then click ***OK***.<br />
+15. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
+16. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
+, click the green "+" to add the following libraries:
+```
+opencv_core
+opencv_imgcodecs
+opencv_highgui
+opencv_imgproc
+opencv_videoio
+```
+
+
