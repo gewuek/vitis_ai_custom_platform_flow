@@ -424,5 +424,8 @@ prop=run.impl_1.strategy=Performance_Explore
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
 8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
-9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.
-10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** to 
+9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.<br />
+10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** from ***Emulation-SW*** to ***Hardware***.<br />
+11. Under Hardware Functions, click the lightning bolt logo to add a new accelerator.<br />
+![add_hardware_function.png](/pic_for_readme/add_hardware_function.png)<br /><br />
+12. 
