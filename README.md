@@ -443,6 +443,6 @@ opencv_imgproc
 opencv_videoio
 ```
 ![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
-17. 
+17. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
 
 
