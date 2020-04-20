@@ -431,7 +431,7 @@ prop=run.impl_1.strategy=Performance_Explore
 ![add_hardware_function.png](/pic_for_readme/add_hardware_function.png)<br /><br />
 12. Select the "dpu_xrt_top" included as part of the dpu.xo file that we included earlier.<br />
 13. Click on binary_container_1 to change the name to dpu.<br />
-14. Right click on "dpu", select ***Edit V++ Options***, add ```--config ../src/prj_config``` as ***V++ Options***, then click ***OK***.<br />
+14. Right click on "dpu", select ***Edit V++ Options***, add ```-s``` as ***V++ Options***, then click ***OK***.<br />
 15. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
 16. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
 , click the green "+" to add the following libraries:
