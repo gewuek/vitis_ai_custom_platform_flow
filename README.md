@@ -10,6 +10,7 @@ This project is trying to create a base vitis platform to run with DPU
 5. Create the Vitis Platform<br />
 6. Prepare for the DPU Kernel<br />
 7. Create and Build a Vitis application<br />
+8. Prepare the Network deployment file<br />
 
 ## Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
@@ -441,5 +442,28 @@ opencv_videoio
 ```
 ![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
 17. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
+
+## Prepare the Network deployment file<br />
+
+1. Find HWH file from your Vitis application folder***hello_dpu/Hardware/dpu.build/link/vivado/vpl/prj/prj.srcs/sources_1/bd/system/hw_handoff/system.hwh***<br />
+Or go to your Vitis application folder use command ```find -name *.hwh``` to search for the file.<br />
+2. Copy this HWH file into ***<Vitis-AI-download_directory>/Tool-Example*** folder.<br />
+3. Go to ***<Vitis-AI-download_directory>*** folder and launch the docker.<br />
+4. Go to ***/workspace/Tool-Example*** folder and run ```dlet -f ./system.hwh```.<br />
+You should get the running log like below:
+```
+(vitis-ai-tensorflow) wuxian@wuxian-Ubuntu1804:/workspace/Tool-Example$ dlet -f ./system.hwh 
+[DLet]Generate DPU DCF file dpu-03-26-2020-13-30.dcf successfully.
+```
+The DCF file name should be assoicated with the time and date you generating this file.<br />
+5. Edit the ***6_tf_compile_for_v2.sh*** file and modify the ***--options*** parameter to add dcf file like below:<br />
+```--options "{'save_kernel':'', 'dcf':'./<generated_dcf_file_name>'}"```<br />
+Take my project as example it is:<br />
+```--options "{'save_kernel':'', 'dcf':'./dpu-03-26-2020-13-30.dcf'}"```<br />
+6. Following the TensorFlow steps at https://github.com/Xilinx/Vitis-AI/blob/v1.1/Tool-Example/README.md to generate the ELF from ResNet model.<br />
+7. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf**.<br />
+8. Copy that file to 
+
+
 
 
