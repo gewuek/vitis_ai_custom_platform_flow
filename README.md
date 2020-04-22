@@ -69,9 +69,9 @@ The Vivado Design Suite is used to generate and write a second type of XSA conta
 
    f) At the bottom of the dialog box set the ***Reset Type*** to ***Active Low***.<br />
    g) Click ***OK*** to close the dialog.<br />
-  The settings should like below:<br />#define CONFIG_SYS_BOOTM_LEN 0xF000000
+  The settings should like below:<br />
   ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
-***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.***<br><br />
+***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.(And from the example I can got the Vitis AI DPU can only have 2 clock domains and the axi_lite control bsu and DPU AXI interface share same clock. So the 100MHz clock can't be used as axi_lite control bus now. The design still can work. But between 100MHz clock and 200MHz clock Vitsi would add a clock convertor inside the axi_interconnect.)***<br><br />
 
 7. Add the Processor System Reset blocks:<br />
    a) Right click Diagram view and select ***Add IP***.<br />
@@ -390,15 +390,12 @@ id=1:dpu_xrt_top_2.ap_clk_2
 
 [connectivity]
 
-sp=dpu_xrt_top_1.M_AXI_GP0:HPM0_LPD
+sp=dpu_xrt_top_1.M_AXI_GP0:HPC0
 sp=dpu_xrt_top_1.M_AXI_HP0:HP0
 sp=dpu_xrt_top_1.M_AXI_HP2:HP1
-sp=dpu_xrt_top_2.M_AXI_GP0:HPM0_LPD
+sp=dpu_xrt_top_2.M_AXI_GP0:HPC1
 sp=dpu_xrt_top_2.M_AXI_HP0:HP2
 sp=dpu_xrt_top_2.M_AXI_HP2:HP3
-
-
-nk=dpu_xrt_top:2
 
 [advanced]
 misc=:solution_name=link
