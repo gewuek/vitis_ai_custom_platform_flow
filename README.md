@@ -462,7 +462,23 @@ Take my project as example it is:<br />
 ```--options "{'save_kernel':'', 'dcf':'./dpu-03-26-2020-13-30.dcf'}"```<br />
 6. Following the TensorFlow steps at https://github.com/Xilinx/Vitis-AI/blob/v1.1/Tool-Example/README.md to generate the ELF from ResNet model.<br />
 7. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf**.<br />
-8. Copy that file to 
+8. Copy that file to <br />
+
+## Test on board<br />
+1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board.<br />
+2. The openssh is default root login disabled. Do the following steps to enable that:<br />
+   a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
+   b) Add ```PermitRootLogin yes``` like below:<br />
+#X11UseLocalhost yes<br />
+#PermitTTY yes
+#PrintMotd yes
+#PrintLastLog yes
+#TCPKeepAlive yes
+#UseLogin no
+***PermitRootLogin yes***
+#PermitUserEnvironment no
+   c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.
+   d) 
 
 
 
