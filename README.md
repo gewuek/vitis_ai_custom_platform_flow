@@ -469,15 +469,17 @@ Take my project as example it is:<br />
 2. The openssh is default root login disabled. Do the following steps to enable that:<br />
    a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
    b) Add ```PermitRootLogin yes``` like below:<br />
-#X11UseLocalhost yes<br />
+···
+#X11UseLocalhost yes
 #PermitTTY yes
 #PrintMotd yes
 #PrintLastLog yes
 #TCPKeepAlive yes
 #UseLogin no
-***PermitRootLogin yes***
+PermitRootLogin yes
 #PermitUserEnvironment no
-   c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.
+···
+   c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.<br />
    d) 
 
 
