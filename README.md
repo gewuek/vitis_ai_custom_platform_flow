@@ -202,6 +202,7 @@ CONFIG_zocl
 CONFIG_opencl-clhpp-dev
 CONFIG_opencl-headers-dev
 CONFIG_packagegroup-petalinux-opencv
+CONFIG_packagegroup-petalinux-opencv-dev
 ```
 5. Add user packages for DPU support by adding more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
 ```
@@ -360,9 +361,6 @@ Bif file:
 
 Image:
     Browse to zcu102_dpu_pkg/pfm/boot and click OK.
-
-Sysroot:
-    Browse to zcu102_dpu_pkg/pfm/sysroots/aarch64-xilinx-linux and click OK. 
 ```
 ![vitis_linux_config.png](/pic_for_readme/vitis_linux_config.png)<br /><br />
 11. Click ***zcu102_vai_custom*** project in the Vitis Explorer view, click the ***Build*** button to generate the platform.
