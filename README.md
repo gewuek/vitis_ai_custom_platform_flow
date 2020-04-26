@@ -437,6 +437,8 @@ opencv_imgcodecs
 opencv_highgui
 opencv_imgproc
 opencv_videoio
+n2cube
+hineon
 ```
 ![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
 17. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
