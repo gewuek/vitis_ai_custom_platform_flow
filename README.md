@@ -356,6 +356,7 @@ petalinux-build --sdk
 ```
 Linux Build Output:
     Browse to zcu102_dpu_pkg/pfm/boot and click OK.
+    
 Bif file:
     Browse to zcu102_dpu_pkg/pfm/boot/linux.bif file and click OK.
 
@@ -365,7 +366,7 @@ Image:
 ![vitis_linux_config.png](/pic_for_readme/vitis_linux_config.png)<br /><br />
 11. Click ***zcu102_vai_custom*** project in the Vitis Explorer view, click the ***Build*** button to generate the platform.
 ![build_vitis_platform.png](/pic_for_readme/build_vitis_platform.png)<br /><br />
-***Note: he generated platform is placed in the export directory. BSP and source files are also provided for re-building the FSBL and PMU if desired and are associated with the platform. The platform is ready to be used for application development.***<br />
+***Note: The generated platform is placed in the export directory. BSP and source files are also provided for re-building the FSBL and PMU if desired and are associated with the platform. The platform is ready to be used for application development.***<br />
 
 ## Prepare for the DPU Kernel<br /><br />
 
