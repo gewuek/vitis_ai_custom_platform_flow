@@ -467,7 +467,7 @@ Take my project as example it is:<br />
 8. Copy that file to <br />
 
 ## Run Application on Board<br />
-1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board.<br />
+1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
 2. The openssh is default root login disabled. Do the following steps to enable that:<br />
    a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
    b) Add ```PermitRootLogin yes``` like below:<br />
@@ -482,7 +482,9 @@ PermitRootLogin yes
 #PermitUserEnvironment no
 ```
    c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.<br />
-   d) 
+   d) Run ```ifconfig``` to get the IP address, here we take ```172.16.75.189``` as example.<br />
+   e) Using SSH terminal to connect ZCU102 with SSH.<br />
+   f) 
 
 
 
