@@ -195,7 +195,8 @@ A Vitis platform requires software components. For Linux, the PetaLinux tools ar
 ```petalinux-config --get-hw-description=<you_vivado_design_dir>/xsa_gen/```<br />
 3. A petalinux-cofig menu would be launched, select ***DTG Settings->MACHINE_NAME***, modify it to ```zcu102-rev1.0```.<br />
 ***Note: If you are using a Xilinx development board, izcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1t is recomended to modify the machine name so that the board confiugrations would be involved in the DTS auto-generation. Otherwise you would need to configure the associated settings(e.g. the PHY information DTS node) by yourself manually.***<br />
-4. Add user packages for XRT support by appending the CONFIG_x lines below to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
+4. Add user packages by appending the CONFIG_x lines below to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
+Packages for base XRT support:<br />
 ```
 CONFIG_xrt
 CONFIG_xrt-dev
@@ -205,7 +206,7 @@ CONFIG_opencl-headers-dev
 CONFIG_packagegroup-petalinux-opencv
 CONFIG_packagegroup-petalinux-opencv-dev
 ```
-5. Add user packages for DPU support by adding more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br />
+Packages for DPU support:<br />
 ```
 CONFIG_glog
 CONFIG_gtest
@@ -215,16 +216,7 @@ CONFIG_python3-pip
 CONFIG_apt
 CONFIG_dpkg
 ```
-6. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
-![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
-
-7. Copy ***petalinux/project-spec/meta-user/recipes-ai/opencv*** folder to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
-8. Add custom opencv recipe. Edit ***<your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig*** and add the opencv recipe at the end:<br />
-```
-COFIG_opencv
-```
-9. Run ```petelinux-config -c rootfs``` and select ***user packages***, enable ***opencv***, save and exit.<br />
-10. To generate sysroot (PetaLinux SDK) for building Vitis AI applications add more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br /> 
+Packages for building Vitis AI applications:<br /> 
 ```
 CONFIG_gtest-staticdev
 CONFIG_json-c-dev
@@ -232,20 +224,28 @@ CONFIG_protobuf-dev
 CONFIG_protobuf-c
 CONFIG_libeigen-dev
 ```
-11. To enable native compile on target board add more configurations to the <your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig file.<br /> 
+Packages for native compiling on target board:<br /> 
 ```
 CONFIG_packagegroup-petalinux-self-hosted
 CONFIG_cmake 
 ```
-12. Enable some other PetaLinux groups which mentioned at DPU integration lab for Vivado flow:<br /> 
+Packages mentioned at DPU integration lab for Vivado flow:<br /> 
 ```
 CONFIG_packagegroup-petalinux-x11
 CONFIG_packagegroup-petalinux-v4lutils
 CONFIG_packagegroup-petalinux-matchbox
 ```
-13. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.<br /> 
+5. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
+![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
 
-14. Enable OpenSSH and disable dropbear<br /> 
+6. Copy ***petalinux/project-spec/meta-user/recipes-ai/opencv*** folder to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
+7. Add custom opencv recipe. Edit ***<your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig*** and add the opencv recipe at the end:<br />
+```
+COFIG_opencv
+```
+8. Run ```petelinux-config -c rootfs``` and select ***user packages***, enable ***opencv***, save and exit.<br />
+
+9. Enable OpenSSH and disable dropbear<br /> 
 
 Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is used to replace Dropbear, it could achieve 4x times faster data transmission speed (tested on 1Gbps Ethernet environment). Since Vitis-AI applications may use remote display feature to show machine learning results, using OpenSSH can improve the display experience.<br /> 
     a) Run ```petalinux-config -c rootfs```.<br /> 
@@ -255,7 +255,7 @@ Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is 
     d) Go to ***Filesystem Packages-> misc->packagegroup-core-ssh-dropbear*** and disable ***packagegroup-core-ssh-dropbear**.<br />
     e) Go to ***Filesystem Packages  -> console  -> network -> openssh** and enable ***openssh***, ***openssh-sshd***, ***openssh-scp***, ***openssh-sftp-server***.<br />
     
-15. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
+10. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
 CPU IDLE would cause CPU IDLE when JTAG is connected. So it is recommended to disable the selection.<br /> 
     a) Type ```petalinux-config -c kernel```<br /> 
@@ -265,7 +265,7 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
        - ***CPU Power Mangement > CPU Idle > CPU idle PM support***<br />
        - ***CPU Power Management > CPU Frequency scaling > CPU Frequency scaling***<br />
 
-16. Update the Device tree to include the zocl driver by appending the text below to the ***project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi*** file. 
+11. Update the Device tree to include the zocl driver by appending the text below to the ***project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi*** file. 
 ```
 &amba {
 	zyxclmm_drm {
@@ -285,7 +285,7 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
 
 ```
 
-17. Modify the u-boot settings:<br />
+12. Modify the u-boot settings:<br />
 Because we didn't use SD card to store the rootfs files. So that u-boot need to load a large image. We need to modify the u-boot so that it can load larger image.
 Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and modify:<br />
 
@@ -297,22 +297,22 @@ to<br />
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
 #undef CONFIG_SYS_BOOTMAPSZ
 ```
-18. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.<br />
-19. Create a sysroot self-installer for the target Linux system:<br />
+13. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.<br />
+14. Create a sysroot self-installer for the target Linux system:<br />
 ```
 cd images/linux
 petalinux-build --sdk
 ```
 ***Note: We would store all the necessary files for Vitis platform creation flow. Here we name it ```zcu102_dpu_pkg ```. Then we create a pfm folder inside.***<br />
-20. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
-21. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
+15. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
+16. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
     - image.ub
     - zynqmp_fsbl.elf
     - pmufw.elf
     - bl31.elf
     - u-boot.elf
 
-22. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
+17. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
 ```
 /* linux */
  the_ROM_image:
