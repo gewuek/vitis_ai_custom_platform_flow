@@ -305,14 +305,16 @@ petalinux-build --sdk
 ```
 ***Note: We would store all the necessary files for Vitis platform creation flow. Here we name it ```zcu102_dpu_pkg ```. Then we create a pfm folder inside.***<br />
 15. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
-16. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
+16. Then install the Vitis AI library and DNNDK into this rootfs:<br />
+
+17. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
     - image.ub
     - zynqmp_fsbl.elf
     - pmufw.elf
     - bl31.elf
     - u-boot.elf
 
-17. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
+18. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
 ```
 /* linux */
  the_ROM_image:
@@ -423,15 +425,16 @@ prop=run.impl_1.strategy=Performance_Explore
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
 8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
-9. Import sources again, and add the cpp and prj_config files from ***ref_files*** folder.<br />
+9. Import sources again, and add the cpp, header and prj_config files from ***ref_files*** folder.<br />
 10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** from ***Emulation-SW*** to ***Hardware***.<br />
 11. Under Hardware Functions, click the lightning bolt logo to ***Add Hardware Function***.<br />
 ![add_hardware_function.png](/pic_for_readme/add_hardware_function.png)<br /><br />
 12. Select the "dpu_xrt_top" included as part of the dpu.xo file that we included earlier.<br />
 13. Click on binary_container_1 to change the name to dpu.<br />
-14. Right click on "dpu", select ***Edit V++ Options***, add ```-s``` as ***V++ Options***, then click ***OK***.<br />
-15. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
-16. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
+14. Click on ***dpu_xrt_top*** and change the ***Compute Units*** from ```1``` to ```2``` because we have 2 dpu cores involved.<br />
+15. Right click on "dpu", select ***Edit V++ Options***, add ```-s``` as ***V++ Options***, then click ***OK***.<br />
+16. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
+17. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
 , click the green "+" to add the following libraries:
 ```
 opencv_core
@@ -443,7 +446,7 @@ n2cube
 hineon
 ```
 ![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
-17. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
+18. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
 
 ## Prepare the Network Deployment File<br />
 
