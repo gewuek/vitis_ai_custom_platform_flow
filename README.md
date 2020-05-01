@@ -1,4 +1,4 @@
-# Vitis AI platform development<br /><br />
+# Vitis AI Custom Platform Development<br /><br />
 1. Introduction to Vitis Acceleration Platform<br />
 2. Create the Vivado Hardware Component<br />
 3. Configure Platform Interface Properties and Generate XSA<br />
