@@ -450,14 +450,31 @@ hineon
 ***Note:*** We should follow the section ***Setting Up the Host For Edge*** of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and section ***Setup cross-compiler for Vitis AI DNNDK and make samples*** of [DNNDK readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install the DNNDK. Most of the time I would suggest you to use a release tag when visting Github resource, but there are some critical modifications after v1.1 release. So I would just suggest you to refer to ***master*** branch this time. If you feel difficult to following the official guide there you can refer to the following ones. ***Please just skip these steps if you already install the libs refering to the readme files***:<br />
     a) Set the PetaLinux SDK environment by running command: ```. <full_pathname_to_zcu102_dpu_pkg>/pfm/environment-setup-aarch64-xilinx-linux```<br />
     b) Download the [vitis_ai_2019.2-r1.1.0.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_2019.2-r1.1.0.tar.gz) and install it to the roofs folder:<br />
-    ```tar -xzvf vitis_ai_2019.2-r1.1.0.tar.gz -C <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux```<br />
-    c) Download the glog package and untar it.<br />
+    ```
+    tar -xzvf vitis_ai_2019.2-r1.1.0.tar.gz -C <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
+    ```
+    c) Download the glog package and untar it:<br />
     ```
     curl -Lo glog-v0.4.0.tar.gz https://github.com/google/glog/archive/v0.4.0.tar.gz
     tar -zxvf glog-v0.4.0.tar.gz
     cd glog-0.4.0
     ```
-
+    d) Build it and install it to the rootfs folder:<br />
+    ```
+    mkdir build_for_petalinux
+    cd build_for_petalinux
+    unset LD_LIBRARY_PATH; source ~/petalinux_sdk/environment-setup-aarch64-xilinx-linux
+    cmake -DCPACK_GENERATOR=TGZ -DBUILD_SHARED_LIBS=on -DCMAKE_INSTALL_PREFIX=<full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux/usr ..
+    make && make install
+    make package
+    ```
+    e) Download DNNDK runtime package vitis-ai_v1.1_dnndk.tar.gz and install it into rootfs
+    ```
+    tar -xzvf vitis-ai_v1.1_dnndk.tar.gz
+    cd vitis-ai_v1.1_dnndk
+    sudo ./install.sh <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
+    ```
+***Now we install both the VAI lib and DNNDK packages into the rootfs set as Vitis sysroot, then we can build application on Vitis.***<br />
 
 21. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
 
@@ -481,27 +498,35 @@ Take my project as example it is:<br />
 6. Following the TensorFlow steps at https://github.com/Xilinx/Vitis-AI/blob/v1.1/Tool-Example/README.md to generate the ELF from ResNet model.<br />
 7. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf**.<br />
 8. Copy that file to the ***src*** folder of Vitis application ***hello_dpu***<br />
-9. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
+9. Right click on the ***hello_dpu*** project folder in Vitis select ***C/C++ Building Settings**.<br />
+10. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Miscellaneous->Other objects***, add a new object: ```"${workspace_loc:/${ProjName}/src/dpu_resnet50_0.elf}"```, click ***Apply and Close***.<br />
+11. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
+***Now you should get an updated hello_dpu.exe with a size of about 20MB(the ConvNet model is involved).***<br />
 
 ## Run Application on Board<br />
 1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
 2. The openssh is default root login disabled. Do the following steps to enable that:<br />
    a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
-   b) Add ```PermitRootLogin yes``` like below:<br />
-```
-#X11UseLocalhost yes
-#PermitTTY yes
-#PrintMotd yes
-#PrintLastLog yes
-#TCPKeepAlive yes
-#UseLogin no
-PermitRootLogin yes
-#PermitUserEnvironment no
-```
+   b) Add ```PermitRootLogin yes``` similar like below:<br />
+   ```
+   #X11UseLocalhost yes
+   #PermitTTY yes
+   #PrintMotd yes
+   #PrintLastLog yes
+   #TCPKeepAlive yes
+   #UseLogin no
+   PermitRootLogin yes
+   #PermitUserEnvironment no
+   ```
    c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.<br />
    d) Run ```ifconfig``` to get the IP address, here we take ```172.16.75.189``` as example.<br />
    e) Using SSH terminal to connect ZCU102 with SSH.<br />
-   f) 
+3. Mount SD card to mnt folder by running command: ```mount /dev/mmc
+4. Since this is a custom design the Vitis AI library,DNNDK, test images are not installed. We need to install them on board.<br />
+I would suggest you to refer to section "Setting Up the Target" of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and refer to section "Setup Evaluation Board and run Vitis AI DNNDK samples" of [DNNDK example readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install DNNDK and test images.(For the similar reason now I would suggest the master branch not v1.1 tag.) If you feel difficult to do that please follow the steps below:
+   a) Download the Vitis AI Runtime 1.1 package [vitis-ai-runtime-1.1.2.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai-runtime-1.1.2.tar.gz)
+   b) Download the demo image files[vitis_ai_library_r1.1_images.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_library_r1.1_images.tar.gz)
+   c) 
 
 
 
