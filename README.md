@@ -234,7 +234,7 @@ CONFIG_packagegroup-petalinux-matchbox
 5. Run ```petelinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
 ![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
 
-6. Copy ***petalinux/project-spec/meta-user/recipes-ai/opencv*** folder to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
+6. Copy ***ref_files/opencv*** folder from this Git reporitory to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
 7. Add custom opencv recipe. Edit ***<your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig*** and add the opencv recipe at the end:<br />
 ```
 COFIG_opencv
@@ -424,7 +424,7 @@ prop=run.impl_1.strategy=Performance_Explore
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
 8. Choose from directory ***<zcu102_dpu_pkg directory>/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
-9. Import sources again, and add the cpp, header and prj_config files from ***ref_files*** folder.<br />
+9. Import sources again, and add the cpp, header and prj_config files from ***ref_files/src*** folder provided by this Git repository.<br />
 10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** from ***Emulation-SW*** to ***Hardware***.<br />
 11. Under Hardware Functions, click the lightning bolt logo to ***Add Hardware Function***.<br />
 ![add_hardware_function.png](/pic_for_readme/add_hardware_function.png)<br /><br />
