@@ -520,13 +520,81 @@ Take my project as example it is:<br />
    ```
    c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.<br />
    d) Run ```ifconfig``` to get the IP address, here we take ```172.16.75.189``` as example.<br />
-   e) Using SSH terminal to connect ZCU102 with SSH.<br />
-3. Mount SD card to mnt folder by running command: ```mount /dev/mmc
-4. Since this is a custom design the Vitis AI library,DNNDK, test images are not installed. We need to install them on board.<br />
-I would suggest you to refer to section "Setting Up the Target" of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and refer to section "Setup Evaluation Board and run Vitis AI DNNDK samples" of [DNNDK example readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install DNNDK and test images.(For the similar reason now I would suggest the master branch not v1.1 tag.) If you feel difficult to do that please follow the steps below:
-   a) Download the Vitis AI Runtime 1.1 package [vitis-ai-runtime-1.1.2.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai-runtime-1.1.2.tar.gz)
-   b) Download the demo image files[vitis_ai_library_r1.1_images.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_library_r1.1_images.tar.gz)
-   c) 
+   e) Using SSH terminal to connect ZCU102 with SSH: ```ssh -x root@172.16.75.189```<br />
+3. Mount SD card to mnt folder by running command: ```mount /dev/mmcblk0p1 /mnt```.<br />
+4. Go to the /mnt folder and create a new folder named "package":
+```
+cd /mnt
+mkdir package
+```
+5. Since this is a custom design the Vitis AI library, DNNDK and test images are not installed. We need to install them on board.<br />
+I would suggest you to refer to section "Setting Up the Target" of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and refer to section "Setup Evaluation Board and run Vitis AI DNNDK samples" of [DNNDK example readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install DNNDK and test images.(For the similar reason now I would suggest the master branch not v1.1 tag.) If you feel difficult to do that please follow the steps below:<br />
+   a) Download the Vitis AI Runtime 1.1 package [vitis-ai-runtime-1.1.2.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai-runtime-1.1.2.tar.gz)<br />
+   b) Untar the packet and copy the following files to the board using scp by running the command on host:<br />
+   ```
+   scp <path_to_untar'd_runtime_library>/unilog/aarch64/libunilog-1.1.0-Linux-build<xx>.deb root@172.16.75.189:~/package
+   scp <path_to_untar'd_runtime_library>/XIR/aarch64/libxir-1.1.0-Linux-build<xx>.deb root@172.16.75.189:~/package
+   scp <path_to_untar'd_runtime_library>/VART/aarch64/libvart-1.1.0-Linux-build<xx>.deb root@172.16.75.189:~/package
+   scp <path_to_untar'd_runtime_library>/Vitis-AI-Library/aarch64/libvitis_ai_library-1.1.0-Linux-build<xx>.deb root@172.16.75.189:~/package
+   ```
+   c) Copy the glog-0.4.0-Linux.tar.gz from host to board with the following command:<br />
+   ***glog-0.4.0-Linux.tar.gz is built before when configure rootfs for Vitis application***<br />
+   ```
+   cd <path_to_glog-0.4.0_build_folder>/build_for_petalinux
+   scp glog-0.4.0-Linux.tar.gz 172.16.75.189:~/package
+   ```
+   d) Download the package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz)and package [vitis-ai_v1.1_dnndk_sample_img.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk_sample_img.tar.gz), copy them to board:<br />
+   ```
+   scp vitis-ai_v1.1_dnndk.tar.gz root@172.16.75.189:~/package
+   scp vitis-ai_v1.1_dnndk_sample_img.tar.gz root@172.16.75.189:~/package
+   ```
+   e) In SSH console go to the ***/mnt/package** folder and install the packages you have uploaded:<br />
+   ```
+   cd /mnt/package
+   dpkg -i --force-all libunilog-1.1.0-Linux-build46.deb
+   dpkg -i libxir-1.1.0-Linux-build46.deb
+   dpkg -i libvart-1.1.0-Linux-build47.deb
+   dpkg -i libvitis_ai_library-1.1.0-Linux-build46.deb
+   ```
+   ***Notice that the first dpkg command we use --force-all option to force install this package and ignore the warning messages***<br />
+   f) Install DNNDK package like below:<br />
+   ```
+   cp vitis-ai_v1.1_dnndk.tar.gz ~/
+   cd ~/
+   tar -zxvf vitis-ai_v1.1_dnndk.tar.gz
+   cd vitis-ai_v1.1_dnndk
+   ./install.sh
+   ```
+   g) Go back to ***/mnt/package*** folder and untar the dnndk example file:
+   ```
+   cd /mnt/package
+   tar -zxvf vitis-ai_v1.1_dnndk_sample_img.tar.gz
+   ```
+6. Go to the vitis_ai_dnndk_samples and run the hello_dpu.exe application:
+```
+cd /mnt/package/vitis_ai_dnndk_samples
+mkdir test
+cd test
+cp /mnt/hello_dpu.exe ./
+./hello_dpu.exe
+```
+***We store the hello_dpu.exe to /mnt/package/vitis_ai_dnndk_samples/test folder to suit the relative path in my code, you can do that according to your code context. The hello_dpu.exe is generated in Vitis application build and was copied to sd card from previous operation***
+7. You should see the result like below:
+![test_result.PNG](/pic_for_readme/test_result.PNG)<br /><br />
+
+## Reference
+
+https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/index.html
+https://github.com/Xilinx/Vitis-AI
+https://github.com/Xilinx/Vitis_Embedded_Platform_Source
+https://github.com/Xilinx/Vitis-AI-Tutorials/tree/Vitis-AI-Custom-Platform
+https://github.com/Xilinx/Edge-AI-Platform-Tutorials/tree/3.1/docs/DPU-Integration
+
+
+
+   
+   
+
 
 
 
