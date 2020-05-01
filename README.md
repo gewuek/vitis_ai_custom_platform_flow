@@ -112,7 +112,7 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
    These names should match the ones in the dynamic_postlink.tcl script.<br />
    n) Right click Diagram view and select ***Add IP***, search and add ***AXI Interrupt Controller*** IP.<br />
    o) Double-click the AXI Interrupt Controller block, set the Interrupts type to Level by changing the button to ***Manual*** and entering ```0x0``` text field, Set the Level type to High by changing the button to ***Manual*** and entering ```0xFFFFFFFF```, Set the Interrupt Output Connection to ***Single***, click ***OK***.<br />
-   The configuration of axi_intc should like below:
+   The configuration of axi_intc should like below:<br />
    ![intc_settings.png](/pic_for_readme/intc_settings.png)<br /><br />
    p) Click ***Run Connection Automation***<br />
    q) Leave the default values for Master interface and Bridge IP.
@@ -140,7 +140,7 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
 7. Enable ***clk_200m***, ***clk_400m***, ***clk_100m*** of clk_wiz_0, set ***id*** of ***clk_200m*** to ```0```, set ***id*** of ***clk_400m*** to ```1```, set ***id*** of ***clk_100m*** to ```2```, enable ***is default*** for ***clk_200m***.<br />
 
 8. Create a ```xsa_gen``` folder inside your Vivado project.<br />
-9. Copy the https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_dpu/vivado/dynamic_postlink.tcl file into that ***xsa_gen*** folder.<br />
+9. Copy the [dynamic_postlink.tcl](https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_dpu/vivado/dynamic_postlink.tcl) file into that ***xsa_gen*** folder.<br />
 Or you can just find this file from any of the MPSoC official platform example.<br />
 10. Create a file named ```xsa.tcl``` inside the ***xsa_gen*** folder.<br />
 11. Copy the following commands into the xsa.tcl file and save the file.<br />
@@ -582,13 +582,13 @@ cp /mnt/hello_dpu.exe ./
 7. You should see the result like below:
 ![test_result.PNG](/pic_for_readme/test_result.PNG)<br /><br />
 
-## Reference
+## Reference<br />
 
-https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/index.html
-https://github.com/Xilinx/Vitis-AI
-https://github.com/Xilinx/Vitis_Embedded_Platform_Source
-https://github.com/Xilinx/Vitis-AI-Tutorials/tree/Vitis-AI-Custom-Platform
-https://github.com/Xilinx/Edge-AI-Platform-Tutorials/tree/3.1/docs/DPU-Integration
+https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/index.html<br />
+https://github.com/Xilinx/Vitis-AI<br />
+https://github.com/Xilinx/Vitis_Embedded_Platform_Source<br />
+https://github.com/Xilinx/Vitis-AI-Tutorials/tree/Vitis-AI-Custom-Platform<br />
+https://github.com/Xilinx/Edge-AI-Platform-Tutorials/tree/3.1/docs/DPU-Integration<br />
 
 
 
