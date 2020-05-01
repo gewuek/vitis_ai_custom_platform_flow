@@ -1,7 +1,7 @@
 # Vitis AI platform development<br /><br />
-1. Vitis Acceleration Platform<br />
+1. Introduction to Vitis Acceleration Platform<br />
 2. Create the Vivado Hardware Component<br />
-3. Configuring Platform Interface Properties and Generate XSA<br />
+3. Configure Platform Interface Properties and Generate XSA<br />
 4. Create the PetaLinux Software Component<br />
 5. Create the Vitis Platform<br />
 6. Prepare for the DPU Kernel<br />
@@ -9,9 +9,10 @@
 8. Prepare the Network Deployment File<br />
 9. Run Application on Board<br />
 
-## Vitis Acceleration Platform<br /><br />
-The Vivado Design Suite is used to generate and write a second type of XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
+## Introduction to Vitis Acceleration Platform<br /><br />
+The Vivado Design Suite is used to generate XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
+For Vitis AI platform, DPU is intergrated as RTL kernel. To create a Vitis AI platform on MPSoC and run ConvNet on that, you need to create a Vivado HW platform, a PetaLinux SW platform, a Vitis platform which contains both the HW/SW platform you created. Then create a Vitis application based on this Vitis platform, import DPU kernel & ARM deployment code and build the Vitis application to be a HW-SW cowork design. Vitis would generate a SD card folder as output which would contain all the files needed to boot up from a target board. In the meanwhile to cross-compile the application and run it on board you may need Vitis AI library and DNNDK, you should install them both on the host and target board.<br />
 
 ## Create the Vivado Hardware Component and Generate XSA<br /><br />
 1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
