@@ -1,7 +1,3 @@
-Select the AXI HPM0 LPD check box.# vitis_ai_custom_platform
-This project is trying to create a base vitis platform to run with DPU
-
-
 # Vitis AI platform development<br /><br />
 1. Vitis Acceleration Platform<br />
 2. Create the Vivado Hardware Component<br />
