@@ -242,7 +242,6 @@ COFIG_opencv
 8. Run ```petelinux-config -c rootfs``` and select ***user packages***, enable ***opencv***, save and exit.<br />
 
 9. Enable OpenSSH and disable dropbear<br /> 
-
 Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is used to replace Dropbear, it could achieve 4x times faster data transmission speed (tested on 1Gbps Ethernet environment). Since Vitis-AI applications may use remote display feature to show machine learning results, using OpenSSH can improve the display experience.<br /> 
     a) Run ```petalinux-config -c rootfs```.<br /> 
     b) Go to ***Image Features***.<br /> 
@@ -250,8 +249,8 @@ Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is 
     ![ssh_settings.png](/pic_for_readme/ssh_settings.png)<br /><br />
     d) Go to ***Filesystem Packages-> misc->packagegroup-core-ssh-dropbear*** and disable ***packagegroup-core-ssh-dropbear**.<br />
     e) Go to ***Filesystem Packages  -> console  -> network -> openssh** and enable ***openssh***, ***openssh-sshd***, ***openssh-scp***, ***openssh-sftp-server***.<br />
-    
-10. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
+10. In rootfs config go to ***Image Features*** and enable ***package-management*** and ***debug_tweaks*** option, store the change and exit.<br />
+11. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
 CPU IDLE would cause CPU IDLE when JTAG is connected. So it is recommended to disable the selection.<br /> 
     a) Type ```petalinux-config -c kernel```<br /> 
@@ -261,7 +260,7 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
        - ***CPU Power Mangement > CPU Idle > CPU idle PM support***<br />
        - ***CPU Power Management > CPU Frequency scaling > CPU Frequency scaling***<br />
 
-11. Update the Device tree to include the zocl driver by appending the text below to the ***project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi*** file. 
+12. Update the Device tree to include the zocl driver by appending the text below to the ***project-spec/meta-user/recipes-bsp/device-tree/files/system-user.dtsi*** file. 
 ```
 &amba {
 	zyxclmm_drm {
@@ -281,7 +280,7 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
 
 ```
 
-12. Modify the u-boot settings:<br />
+13. Modify the u-boot settings:<br />
 Because we didn't use SD card to store the rootfs files. So that u-boot need to load a large image. We need to modify the u-boot so that it can load larger image.
 Open ***project-spec/meta-user/recipes-bsp/u-boot/files/platform-top.h*** and modify:<br />
 
@@ -293,8 +292,8 @@ to<br />
 #define CONFIG_SYS_BOOTM_LEN 0x80000000
 #undef CONFIG_SYS_BOOTMAPSZ
 ```
-13. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.<br />
-14. Create a sysroot self-installer for the target Linux system:<br />
+14. From within the PetaLinux project (petalinux), type ```petalinux-build``` to build the project.<br />
+15. Create a sysroot self-installer for the target Linux system:<br />
 ```
 cd images/linux
 petalinux-build --sdk
