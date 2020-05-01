@@ -307,14 +307,14 @@ petalinux-build --sdk
 15. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
 16. Then install the Vitis AI library and DNNDK into this rootfs:<br />
 
-17. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***zcu102_dpu_pkg/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
+17. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
     - image.ub
     - zynqmp_fsbl.elf
     - pmufw.elf
     - bl31.elf
     - u-boot.elf
 
-18. Add a BIF file (linux.bif) to the ***zcu102_dpu_pkg/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
+18. Add a BIF file (linux.bif) to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
 ```
 /* linux */
  the_ROM_image:
@@ -413,18 +413,18 @@ prop=run.impl_1.strategy=Performance_Explore
 ```
 
 9. Generate the XO file by typing: ```make binary_container_1/dpu.xo DEVICE=zcu102_vai_custom```.<br />
-10. Verify if the XO file is generated here: ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/dpu.xo***.<br />
+10. Verify if the XO file is generated here: ***<zcu102_dpu_pkg directory>/DPU-TRD/prj/Vitis/binary_container_1/dpu.xo***.<br />
 
 ## Create and Build a Vitis application
 1. Open Vitis workspace you were using before.<br />
 2. Select ***File -> New -> Application Project***.<br />
 3. Name the project ```hello_dpu```, use ***new system project** and use the default name, click ***next***.<br />
 4. Select ***zcu102_vai_custom*** as platform, click ***next***.<br />
-5. Set Domain to ***linux on psu_cortexa53*** and click ***next***.<br />
+5. Set Domain to ***linux on psu_cortexa53***, set ***Sys_root path*** to ```<full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux```(as you created by running ***sdk.sh***) and click ***next***.<br />
 6. Select ***Empty Application*** and click ***finish*** to generate the application.<br />
 7. Right click on the ***src*** folder under your ***hello_dpu*** application  in the Expplorer window, and select "Import Sources"
 ![import_sources.png](/pic_for_readme/import_sources.png)<br /><br />
-8. Choose from directory ***zcu102_dpu_pkg/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
+8. Choose from directory ***<zcu102_dpu_pkg directory>/DPU-TRD/prj/Vitis/binary_container_1/*** as the target location, and import the ***dpu.xo*** file that we just created.<br />
 9. Import sources again, and add the cpp, header and prj_config files from ***ref_files*** folder.<br />
 10. In the Explorer window double click the hello_dpu.prj file to open it, change the ***Active Build configuration*** from ***Emulation-SW*** to ***Hardware***.<br />
 11. Under Hardware Functions, click the lightning bolt logo to ***Add Hardware Function***.<br />
@@ -432,7 +432,7 @@ prop=run.impl_1.strategy=Performance_Explore
 12. Select the "dpu_xrt_top" included as part of the dpu.xo file that we included earlier.<br />
 13. Click on binary_container_1 to change the name to dpu.<br />
 14. Click on ***dpu_xrt_top*** and change the ***Compute Units*** from ```1``` to ```2``` because we have 2 dpu cores involved.<br />
-15. Right click on "dpu", select ***Edit V++ Options***, add ```-s``` as ***V++ Options***, then click ***OK***.<br />
+15. Right click on "dpu", select ***Edit V++ Options***, add ```--config ../src/prj_config -s``` as ***V++ Options***, then click ***OK***.<br />
 16. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
 17. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
 , click the green "+" to add the following libraries:
@@ -445,8 +445,25 @@ opencv_videoio
 n2cube
 hineon
 ```
-![add_opencv_lib.png](/pic_for_readme/add_opencv_lib.png)<br /><br />
-18. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
+18. In the same page, modify the ***Library search path*** to add ```${SYSROOT}/usr/lib/```, click ***Apply***<br />
+![vitis_lib_settings.png](/pic_for_readme/vitis_lib_settings.png)<br /><br />
+19. Then go to ***C/C++ Build->Settings->Tool Settings->GCC Host Compiler->Includes***, remove the HLS include directory and add ```${SYSROOT}/usr/include/``` like below, then click ***Apply and Close*** to save the changes.<br />
+![vitis_include_settings.png](/pic_for_readme/vitis_include_settings.png)<br /><br />
+***These steps are used to make sure your application can call libs in rootfs directly on Vitis appilcation build***
+20. The Vitis AI library and DNNDK are not included in PetaLinux SDK rootfs, now let's install them into the rootfs directory:<br />
+***Note:*** We should follow the section ***Setting Up the Host For Edge*** of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and section ***Setup cross-compiler for Vitis AI DNNDK and make samples*** of [DNNDK readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install the DNNDK. Most of the time I would suggest you to use a release tag when visting Github resource, but there are some critical modifications after v1.1 release. So I would just suggest you to refer to ***master*** branch this time. If you feel difficult to following the official guide there you can refer to the following ones. ***Please just skip these steps if you already install the libs refering to the readme files***:<br />
+    a) Set the PetaLinux SDK environment by running command: ```. <full_pathname_to_zcu102_dpu_pkg>/pfm/environment-setup-aarch64-xilinx-linux```<br />
+    b) Download the [vitis_ai_2019.2-r1.1.0.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_2019.2-r1.1.0.tar.gz) and install it to the roofs folder:<br />
+    ```tar -xzvf vitis_ai_2019.2-r1.1.0.tar.gz -C <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux```<br />
+    c) Download the glog package and untar it.<br />
+    ```
+    curl -Lo glog-v0.4.0.tar.gz https://github.com/google/glog/archive/v0.4.0.tar.gz
+    tar -zxvf glog-v0.4.0.tar.gz
+    cd glog-0.4.0
+    ```
+
+
+21. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
 
 ## Prepare the Network Deployment File<br />
 
@@ -467,7 +484,8 @@ Take my project as example it is:<br />
 ```--options "{'save_kernel':'', 'dcf':'./dpu-03-26-2020-13-30.dcf'}"```<br />
 6. Following the TensorFlow steps at https://github.com/Xilinx/Vitis-AI/blob/v1.1/Tool-Example/README.md to generate the ELF from ResNet model.<br />
 7. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf**.<br />
-8. Copy that file to <br />
+8. Copy that file to the ***src*** folder of Vitis application ***hello_dpu***<br />
+9. Right click the ***hello_dpu*** project folder and select ***Build Project***<br />
 
 ## Run Application on Board<br />
 1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
