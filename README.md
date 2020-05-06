@@ -12,7 +12,7 @@
 ## Introduction to Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
 ![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
-For Vitis AI platform, DPU is intergrated as RTL kernel. To create a Vitis AI platform on MPSoC and run ConvNet on that, you need to create a Vivado HW platform, a PetaLinux SW platform, a Vitis platform which contains both the HW/SW platform you created. Then create a Vitis application based on this Vitis platform, import DPU kernel & ARM deployment code and build the Vitis application to be a HW-SW cowork design. Vitis would generate a SD card folder as output which would contain all the files needed to boot up from a target board. In the meanwhile to cross-compile the application and run it on board you may need Vitis AI library and DNNDK, you should install them both on the host and target board.<br />
+For Vitis AI platform, DPU is integrated as RTL kernel. To create a Vitis AI platform on MPSoC and run ConvNet on that, you need to create a Vivado HW platform, a PetaLinux SW platform, a Vitis platform which contains both the HW/SW platform you created. Then create a Vitis application based on this Vitis platform, import DPU kernel & ARM deployment code and build the Vitis application to be a HW-SW cowork design. Vitis would generate a SD card folder as output which would contain all the files needed to boot up from a target board. In the meanwhile to cross-compile the application and run it on board you may need Vitis AI library and DNNDK, you should install them both on the host and target board.<br />
 
 ## Create the Vivado Hardware Component and Generate XSA<br /><br />
 1. Source <Vitis_Install_Directory>/settings64.sh, and call Vivado out by typing "vivado" in the console.<br />
@@ -56,7 +56,7 @@ For Vitis AI platform, DPU is intergrated as RTL kernel. To create a Vitis AI pl
   
 ***Note: This is a little different from traditional Vivado design flow. When trying to make AXI interfaces available in Vitis design you should disable these interface at Vivado IPI platform and enable them at platform interface properties. We will show you how to do that later***<br><br />
 
-6. Add clock block:<br />write_hw_platform -fixed -force  -file /home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_custom_platform/xsa_gen/zcu102_custom_platform.xsa
+6. Add clock block:<br />
    a) Right click Diagram view and select ***Add IP***.<br />
    b) Search for and add a Clocking Wizard from the IP Search dialog.<br />
    c) Double-click the clk_wiz_0 IP block to open the Re-Customize IP dialog box.<br />
@@ -70,7 +70,7 @@ For Vitis AI platform, DPU is intergrated as RTL kernel. To create a Vitis AI pl
    g) Click ***OK*** to close the dialog.<br />
   The settings should like below:<br />
   ![clock_settings.png](/pic_for_readme/clock_settings.png)<br />
-***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.(And from the example I can got the Vitis AI DPU can only have 2 clock domains and the axi_lite control bsu and DPU AXI interface share same clock. So the 100MHz clock can't be used as axi_lite control bus now. The design still can work. But between 100MHz clock and 200MHz clock Vitsi would add a clock convertor inside the axi_interconnect.)***<br><br />
+***Note: So now we have set up the clock system for our design. This clock wizard use the pl_clk as input clock and geneatate clocks needed for the whole logic design. In this simple design I would like to use 100MHz clock as the axi_lite control bus clock, 200MHz clock as DPU AXI interface clock and 400MHz as DPU core clock. You can just modifiy these clocks as you like and remember we should "tell" Vitis what clock we can use. Let's do that later.(And after creating this example I learn that the Vitis AI DPU can only have 2 clock domains and the axi_lite control bus and DPU AXI interface share same clock. So the 100MHz clock can't be used as axi_lite control bus now. The design still can work. But between 100MHz clock and 200MHz clock Vitis would add a clock convertor inside the axi_interconnect.)***<br><br />
 
 7. Add the Processor System Reset blocks:<br />
    a) Right click Diagram view and select ***Add IP***.<br />
@@ -87,7 +87,7 @@ For Vitis AI platform, DPU is intergrated as RTL kernel. To create a Vitis AI pl
       - proc_sys_reset_200m with /clk_wiz_0/clk_200m<br />
       - proc_sys_reset_400m with /clk_wiz_0/clk_400m<br />
 
-   e) On each proc_sys_reset instance, select the ***ext_reset_in***, set ***Board Part Interface*** and set the ***Select Manual Source*** to ***/zynq_ultra_ps_e_0/pl_resetn0***.<br />
+   e) On each proc_sys_reset instance, select the ***ext_reset_in***, set ***Board Part Interface*** to ***Custom*** and set the ***Select Manual Source*** to ***/zynq_ultra_ps_e_0/pl_resetn0***.<br />
    f) Make sure all checkboxes are enabled, and click ***OK*** to close the dialog and create the connections.<br />
    g) Connect all the ***dcm_locked*** signals on each proc_sys_reset instance to the locked signal on ***clk_wiz_0***.<br />
    Then the connection should like below:<br />
