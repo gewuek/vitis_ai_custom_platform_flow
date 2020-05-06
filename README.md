@@ -598,6 +598,12 @@ https://github.com/Xilinx/Vitis_Embedded_Platform_Source<br />
 https://github.com/Xilinx/Vitis-AI-Tutorials/tree/Vitis-AI-Custom-Platform<br />
 https://github.com/Xilinx/Edge-AI-Platform-Tutorials/tree/3.1/docs/DPU-Integration<br />
 
+## Information about install and set Vitis and XRT environment<br />
+https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk2027126153.html#zks1565446519267<br />
+https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/pjr1542153622642.html<br />
+https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/rbk1547656041291.html<br />
+
+
 
 
    
