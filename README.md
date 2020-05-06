@@ -472,7 +472,7 @@ hineon
     make && make install
     make package
     ```
-    e) Download DNNDK runtime package vitis-ai_v1.1_dnndk.tar.gz and install it into rootfs
+    e) Download DNNDK runtime package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz) and install it into rootfs
     ```
     tar -xzvf vitis-ai_v1.1_dnndk.tar.gz
     cd vitis-ai_v1.1_dnndk
@@ -547,7 +547,7 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    cd <path_to_glog-0.4.0_build_folder>/build_for_petalinux
    scp glog-0.4.0-Linux.tar.gz 172.16.75.189:~/package
    ```
-   d) Download the package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz)and package [vitis-ai_v1.1_dnndk_sample_img.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk_sample_img.tar.gz), copy them to board:<br />
+   d) Download the package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz) and package [vitis-ai_v1.1_dnndk_sample_img.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk_sample_img.tar.gz), copy them to board:<br />
    ```
    scp vitis-ai_v1.1_dnndk.tar.gz root@172.16.75.189:~/package
    scp vitis-ai_v1.1_dnndk_sample_img.tar.gz root@172.16.75.189:~/package
