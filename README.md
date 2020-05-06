@@ -508,7 +508,7 @@ Take my project as example it is:<br />
 ***Now you should get an updated hello_dpu.exe with a size of about 20MB(the ConvNet model is involved).***<br />
 
 ## Run Application on Board<br />
-1. Copy all the files from to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
+1. Copy all the files from ***sd_card folder*** inside your Vitis application like ***<hello_dpu_application_directory>/Hardware/sd_card/*** to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
 2. The openssh is default root login disabled. Do the following steps to enable that:<br />
    a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
    b) Add ```PermitRootLogin yes``` similar like below:<br />
