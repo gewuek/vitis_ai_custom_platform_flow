@@ -331,7 +331,11 @@ petalinux-build --sdk
 
 ## Create the Vitis Platform<br /><br />
 
-1. Source ***<Vitis_Install_Directory>/settings64.sh***.<br />
+1. Source Vitis and XRT settings<br />
+```
+source <Vitis_Install_Directory>/settings64.sh
+source /opt/xilinx/xrt/setup.sh
+```
 2. Go to the ***zcu102_dpu_pkg*** folder you created: ```cd <full_pathname_to_zcu102_dpu_pkg>```.<br />
 3. Launch Vitis by typing ```vits``` in the console.<br />
 4. Select ***zcu102_dpu_pkg*** folder as workspace directory.<br />
