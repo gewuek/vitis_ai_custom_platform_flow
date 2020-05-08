@@ -577,12 +577,12 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    cd vitis-ai_v1.1_dnndk
    ./install.sh
    ```
-   g) Go back to ***/mnt/package*** folder and untar the dnndk example file:
+   g) Go back to ***/mnt/package*** folder and untar the dnndk example file:<br />
    ```
    cd /mnt/package
    tar -zxvf vitis-ai_v1.1_dnndk_sample_img.tar.gz
    ```
-6. Go to the vitis_ai_dnndk_samples and run the hello_dpu.exe application:
+6. Go to the vitis_ai_dnndk_samples and run the hello_dpu.exe application:<br />
 ```
 cd /mnt/package/vitis_ai_dnndk_samples
 mkdir test
