@@ -11,7 +11,7 @@
 
 ## Introduction to Vitis Acceleration Platform<br /><br />
 The Vivado Design Suite is used to generate XSA containing a few additional IP blocks and metadata to support kernel connectivity. The following figure shows the acceleration kernel application development flow:<br />
-![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)
+![vitis_acceleration_flow.PNG](/pic_for_readme/vitis_acceleration_flow.PNG)<br />
 For Vitis AI platform, DPU is integrated as RTL kernel. To create a Vitis AI platform on MPSoC and run ConvNet on that, you need to create a Vivado HW platform, a PetaLinux SW platform, a Vitis platform which contains both the HW/SW platform you created. Then create a Vitis application based on this Vitis platform, import DPU kernel & ARM deployment code and build the Vitis application to be a HW-SW cowork design. Vitis would generate a SD card folder as output which would contain all the files needed to boot up from a target board. In the meanwhile to cross-compile the application and run it on board you may need Vitis AI library and DNNDK, you should install them both on the host and target board.<br />
 
 ## Create the Vivado Hardware Component and Generate XSA<br /><br />
