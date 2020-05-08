@@ -508,7 +508,7 @@ The DCF file name should be assoicated with the time and date you generating thi
 Take my project as example it is:<br />
 ```--options "{'save_kernel':'', 'dcf':'./dpu-03-26-2020-13-30.dcf'}"```<br />
 7. Following the TensorFlow steps at https://github.com/Xilinx/Vitis-AI/blob/v1.1/Tool-Example/README.md to generate the ELF from ResNet model.<br />
-8. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf**.<br />
+8. Check the generated ELF file from ***tf_resnetv1_50_imagenet_224_224_6.97G/vai_c_output_ZCU102/dpu_resnet50_0.elf***.<br />
 9. Copy that file to the ***src*** folder of Vitis application ***hello_dpu***<br />
 10. Right click on the ***hello_dpu*** project folder in Vitis select ***C/C++ Building Settings**.<br />
 11. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Miscellaneous->Other objects***, add a new object: ```"${workspace_loc:/${ProjName}/src/dpu_resnet50_0.elf}"```, click ***Apply and Close***.<br />
@@ -560,7 +560,7 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    scp vitis-ai_v1.1_dnndk.tar.gz root@172.16.75.189:~/package
    scp vitis-ai_v1.1_dnndk_sample_img.tar.gz root@172.16.75.189:~/package
    ```
-   e) In SSH console go to the ***/mnt/package** folder and install the packages you have uploaded:<br />
+   e) In SSH console go to the ***/mnt/package*** folder and install the packages you have uploaded:<br />
    ```
    cd /mnt/package
    dpkg -i --force-all libunilog-1.1.0-Linux-build46.deb
