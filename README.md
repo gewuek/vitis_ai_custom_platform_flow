@@ -590,8 +590,8 @@ cd test
 cp /mnt/hello_dpu.exe ./
 ./hello_dpu.exe
 ```
-***We store the hello_dpu.exe to /mnt/package/vitis_ai_dnndk_samples/test folder to suit the relative path in my code, you can do that according to your code context. The hello_dpu.exe is generated in Vitis application build and was copied to sd card from previous operation***
-7. You should see the result like below:
+***We store the hello_dpu.exe to /mnt/package/vitis_ai_dnndk_samples/test folder to suit the relative path in my code, you can do that according to your code context. The hello_dpu.exe is generated in Vitis application build and was copied to sd card from previous operation***<br />
+7. You should see the result like below:<br />
 ![test_result.PNG](/pic_for_readme/test_result.PNG)<br /><br />
 
 ## Reference<br />
