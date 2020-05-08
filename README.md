@@ -457,12 +457,14 @@ hineon
 20. The Vitis AI library and DNNDK are not included in PetaLinux SDK rootfs, now let's install them into the rootfs directory:<br />
 ***Note:*** We should follow the section ***Setting Up the Host For Edge*** of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and section ***Setup cross-compiler for Vitis AI DNNDK and make samples*** of [DNNDK readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install the DNNDK. Most of the time I would suggest you to use a release tag when visting Github resource, but there are some critical modifications after v1.1 release. So I would just suggest you to refer to ***master*** branch this time. If you feel difficult to following the official guide there you can refer to the following ones. ***Please just skip these steps if you already install the libs refering to the readme files***:<br />
     a) Set the PetaLinux SDK environment by running command: ```. <full_pathname_to_zcu102_dpu_pkg>/pfm/environment-setup-aarch64-xilinx-linux```<br />
-    b) Download the [vitis_ai_2019.2-r1.1.0.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_2019.2-r1.1.0.tar.gz) and install it to the roofs folder:<br />
+    b) Download the [vitis_ai_2019.2-r1.1.0.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_2019.2-r1.1.0.tar.gz) to a particular directory(here we take ***~/Downloads*** as example) and install it to the roofs folder:<br />
     ```
+    cd ~/Downloads # Or some place else you download the vitis_ai_2019.2-r1.1.0.tar.gz file
     tar -xzvf vitis_ai_2019.2-r1.1.0.tar.gz -C <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
     ```
-    c) Download the glog package and untar it:<br />
+    c) Download the glog package to ***~/Downloads*** folder and untar it:<br />
     ```
+    cd ~/Downloads # Or some place else you download the file
     curl -Lo glog-v0.4.0.tar.gz https://github.com/google/glog/archive/v0.4.0.tar.gz
     tar -zxvf glog-v0.4.0.tar.gz
     cd glog-0.4.0
@@ -471,13 +473,14 @@ hineon
     ```
     mkdir build_for_petalinux
     cd build_for_petalinux
-    unset LD_LIBRARY_PATH; source ~/petalinux_sdk/environment-setup-aarch64-xilinx-linux
+    unset LD_LIBRARY_PATH; source <full_pathname_to_zcu102_dpu_pkg>/pfm/environment-setup-aarch64-xilinx-linux
     cmake -DCPACK_GENERATOR=TGZ -DBUILD_SHARED_LIBS=on -DCMAKE_INSTALL_PREFIX=<full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux/usr ..
     make && make install
     make package
     ```
-    e) Download DNNDK runtime package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz) and install it into rootfs
+    e) Download DNNDK runtime package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz) to ***~/Downloads*** and install it into rootfs
     ```
+    cd ~/Downloads # Or some place else you download the file
     tar -xzvf vitis-ai_v1.1_dnndk.tar.gz
     cd vitis-ai_v1.1_dnndk
     sudo ./install.sh <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
