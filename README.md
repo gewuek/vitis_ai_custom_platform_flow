@@ -590,7 +590,7 @@ cd test
 cp /mnt/hello_dpu.exe ./
 ./hello_dpu.exe
 ```
-***We store the hello_dpu.exe to /mnt/package/vitis_ai_dnndk_samples/test folder to suit the relative path in my code, you can do that according to your code context. The hello_dpu.exe is generated in Vitis application build and was copied to sd card from previous operation***<br />
+***We store the hello_dpu.exe to /mnt/package/vitis_ai_dnndk_samples/test folder to suit the relative path in my code, you can do that according to your code context. The hello_dpu.exe is generated in Vitis application build and was copied to sd card from previous operation.***<br />
 7. You should see the result like below:<br />
 ![test_result.PNG](/pic_for_readme/test_result.PNG)<br /><br />
 
@@ -601,6 +601,7 @@ https://github.com/Xilinx/Vitis-AI<br />
 https://github.com/Xilinx/Vitis_Embedded_Platform_Source<br />
 https://github.com/Xilinx/Vitis-AI-Tutorials/tree/Vitis-AI-Custom-Platform<br />
 https://github.com/Xilinx/Edge-AI-Platform-Tutorials/tree/3.1/docs/DPU-Integration<br />
+If you would like to try with one click creating VAI platform flow it is recommended to try with the official platform source code for [zcu102_dpu](https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_dpu) and [zcu104_dpu](https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu104_dpu). <br />
 
 ## More Information about Install and Set Vitis and XRT Environment<br />
 https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk2027126153.html#zks1565446519267<br />
