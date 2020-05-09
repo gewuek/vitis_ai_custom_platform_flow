@@ -505,7 +505,7 @@ You should get the running log like below:
 (vitis-ai-tensorflow) wuxian@wuxian-Ubuntu1804:/workspace/Tool-Example$ dlet -f ./system.hwh 
 [DLet]Generate DPU DCF file dpu-03-26-2020-13-30.dcf successfully.
 ```
-The DCF file name should be assoicated with the time and date you generating this file.<br />
+The DCF file name should be associated with the time and date you generating this file.<br />
 6. Edit the ***6_tf_compile_for_v2.sh*** file and modify the ***--options*** parameter to add dcf file like below:<br />
 ```--options "{'save_kernel':'', 'dcf':'./<generated_dcf_file_name>'}"```<br />
 Take my project as example it is:<br />
