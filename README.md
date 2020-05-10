@@ -568,10 +568,10 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    cd /mnt/package
    dpkg -i --force-all libunilog-1.1.0-Linux-build46.deb
    dpkg -i libxir-1.1.0-Linux-build46.deb
-   dpkg -i libvart-1.1.0-Linux-build47.deb
+   dpkg -i libvart-1.1.0-Linux-build48.deb
    dpkg -i libvitis_ai_library-1.1.0-Linux-build46.deb
    ```
-   ***Notice that the first dpkg command we use --force-all option to force install this package and ignore the warning messages***<br />
+   ***Notice that the first dpkg command we use --force-all option to force install this package and ignore the warning messages. And the build version may be a little different depending on the download time.***<br />
    f) Install DNNDK package like below:<br />
    ```
    cp vitis-ai_v1.1_dnndk.tar.gz ~/
