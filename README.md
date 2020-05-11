@@ -556,12 +556,12 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    ***glog-0.4.0-Linux.tar.gz is built before when configure rootfs for Vitis application***<br />
    ```
    cd <path_to_glog-0.4.0_build_folder>/build_for_petalinux
-   scp glog-0.4.0-Linux.tar.gz 172.16.75.189:~/package
+   scp glog-0.4.0-Linux.tar.gz 172.16.75.189:/mnt/package
    ```
    d) Download the package [vitis-ai_v1.1_dnndk.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk.tar.gz) and package [vitis-ai_v1.1_dnndk_sample_img.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis-ai_v1.1_dnndk_sample_img.tar.gz), copy them to board:<br />
    ```
-   scp vitis-ai_v1.1_dnndk.tar.gz root@172.16.75.189:~/package
-   scp vitis-ai_v1.1_dnndk_sample_img.tar.gz root@172.16.75.189:~/package
+   scp vitis-ai_v1.1_dnndk.tar.gz root@172.16.75.189:/mnt/package
+   scp vitis-ai_v1.1_dnndk_sample_img.tar.gz root@172.16.75.189:/mnt/package
    ```
    e) In SSH console go to the ***/mnt/package*** folder and install the packages you have uploaded:<br />
    ```
