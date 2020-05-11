@@ -232,10 +232,6 @@ CONFIG_packagegroup-petalinux-x11
 CONFIG_packagegroup-petalinux-v4lutils
 CONFIG_packagegroup-petalinux-matchbox
 ```
-Package for SSH server:<br/>
-```
-CONFIG_packagegroup-core-ssh-openssh
-```
 5. Run ```petalinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
 ![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
 
@@ -253,6 +249,7 @@ Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is 
     c) Disable ***ssh-server-dropbear*** and enable ***ssh-server-openssh***.<br /> 
     ![ssh_settings.png](/pic_for_readme/ssh_settings.png)<br /><br />
     d) Go to ***Filesystem Packages-> misc->packagegroup-core-ssh-dropbear*** and disable ***packagegroup-core-ssh-dropbear***.<br />
+    e) Go to ***Filesystem Packages  -> console  -> network -> openssh*** and enable ***openssh***, ***openssh-sshd***, ***openssh-scp***, ***openssh-sftp-server***.<br />
 10. In rootfs config go to ***Image Features*** and enable ***package-management*** and ***debug_tweaks*** option, store the change and exit.<br />
 11. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
@@ -486,7 +483,7 @@ hineon
     cd ~/Downloads # Or some place else you download the file
     tar -xzvf vitis-ai_v1.1_dnndk.tar.gz
     cd vitis-ai_v1.1_dnndk
-    sudo ./install.sh <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
+    ./install.sh <full_pathname_to_zcu102_dpu_pkg>/pfm/sysroots/aarch64-xilinx-linux
     ```
 ***Now we install both the VAI lib and DNNDK packages into the rootfs set as Vitis sysroot, then we can build application on Vitis.***<br />
 
@@ -523,22 +520,9 @@ Take my project as example it is:<br />
 
 ## Run Application on Board<br />
 1. Copy all the files from ***sd_card folder*** inside your Vitis application like ***<hello_dpu_application_directory>/Hardware/sd_card/*** to SD card, set ZCU102 to SD boot mode and boot up the board, connect the board with serial port.<br />
-2. The openssh is default root login disabled. Do the following steps to enable that:<br />
-   a) Run ```vi /etc/ssh/sshd_config``` command on board.<br />
-   b) Add ```PermitRootLogin yes``` similar like below:<br />
-   ```
-   #X11UseLocalhost yes
-   #PermitTTY yes
-   #PrintMotd yes
-   #PrintLastLog yes
-   #TCPKeepAlive yes
-   #UseLogin no
-   PermitRootLogin yes
-   #PermitUserEnvironment no
-   ```
-   c) Store the file, and run ```/etc/init.d/sshd restart``` to restart it.<br />
-   d) Run ```ifconfig``` to get the IP address, here we take ```172.16.75.189``` as example.<br />
-   e) Using SSH terminal to connect ZCU102 with SSH: ```ssh -x root@172.16.75.189```<br />
+2. Connect SSH:<br />
+   a) Run ```ifconfig``` to get the IP address, here we take ```172.16.75.189``` as example.<br />
+   b) Using SSH terminal to connect ZCU102 with SSH: ```ssh -x root@172.16.75.189```, or use MobaXterm in Windows.<br />
 3. Mount SD card to mnt folder by running command: ```mount /dev/mmcblk0p1 /mnt```.<br />
 4. Go to the /mnt folder and create a new folder named "package":
 ```
