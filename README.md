@@ -566,6 +566,7 @@ I would suggest you to refer to section "Setting Up the Target" of [Vitis AI lib
    e) In SSH console go to the ***/mnt/package*** folder and install the packages you have uploaded:<br />
    ```
    cd /mnt/package
+   tar -xzvf glog-0.4.0-Linux.tar.gz --strip-components=1 -C /usr
    dpkg -i --force-all libunilog-1.1.0-Linux-build46.deb
    dpkg -i libxir-1.1.0-Linux-build46.deb
    dpkg -i libvart-1.1.0-Linux-build48.deb
