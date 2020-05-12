@@ -235,7 +235,7 @@ CONFIG_packagegroup-petalinux-matchbox
 5. Run ```petalinux-config -c rootfs``` and select ***user packages***, select name of rootfs all the libraries listed above, save and exit.
 ![petalinux_rootfs.png](/pic_for_readme/petalinux_rootfs.png)<br /><br />
 
-6. Copy ***ref_files/opencv*** folder from this Git reporitory to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
+6. Copy ***ref_files/opencv*** folder from this Git repository to ***<your_petalinux_project_dir>/project-spec/meta-user/recipes-ai*** in your platform source (if not exist, users need to create this directory).<br />
 7. Add custom opencv recipe. Edit ***<your_petalinux_project_dir>/project-spec/meta-user/conf/user-rootfsconfig*** and add the opencv recipe at the end:<br />
 ```
 CONFIG_opencv
