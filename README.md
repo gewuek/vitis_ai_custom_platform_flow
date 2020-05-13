@@ -249,7 +249,7 @@ Dropbear is the default SSH tool in Vitis Base Embedded Platform. If OpenSSH is 
     c) Disable ***ssh-server-dropbear*** and enable ***ssh-server-openssh***.<br /> 
     ![ssh_settings.png](/pic_for_readme/ssh_settings.png)<br /><br />
     d) Go to ***Filesystem Packages-> misc->packagegroup-core-ssh-dropbear*** and disable ***packagegroup-core-ssh-dropbear***.<br />
-    e) Go to ***Filesystem Packages  -> console  -> network -> openssh*** and enable ***openssh***, ***openssh-ssh***, ***openssh-scp***, ***openssh-sftp-server***.<br />
+    e) Go to ***Filesystem Packages  -> console  -> network -> openssh*** and enable ***openssh***, ***openssh-sftp-server***, ***openssh-sshd***, ***openssh-scp***.<br />
 10. In rootfs config go to ***Image Features*** and enable ***package-management*** and ***debug_tweaks*** option, store the change and exit.<br />
 11. Increase the size allocation for CMA memory to 512 MB (optional), disable CPU IDLE in the kernel configurations as follows:<br /> 
 Default CMA size in PetaLinux project and Vitis Base Platform is 256MB. But for some models, 256MB is not enough to allocate DPU instructions/parameters/data area. Unless it's clear that your 256MB is sufficient for your model, it's recommended to set cma=512M which could cover all Vitis-AI models.<br /> 
@@ -281,9 +281,9 @@ Ensure the following are ***TURNED OFF*** by entering 'n' in the [ ] menu select
 
 ```
 13. Modify the bsp config file:<br />
-Open ***project-spec/meta-user/conf/petalinuxbsp.conf/*** and add a line like below:<br />
+Open ***project-spec/meta-user/conf/petalinuxbsp.conf*** and add a line like below:<br />
 ```
-PACKAGE_CLASSES = " package_deb"
+PACKAGE_CLASSES = "package_deb"
 ```
 14. Modify the u-boot settings:<br />
 Because we didn't use SD card to store the rootfs files. So that u-boot need to load a large image. We need to modify the u-boot so that it can load larger image.
