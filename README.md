@@ -358,7 +358,7 @@ source /opt/xilinx/xrt/setup.sh
    - The name of the Platform Settings view matches the platform project name of ***zcu102_vai_custom***.<br />
    - A psu_cortexa53 device icon is shown, containing a Linux on psu_cortexa53 domain.<br />
    - A psu_cortexa53 device icon is shown, containing a zynqmp_fsbl BSP.<br />
-   - A psu_pmu_0 device icon is shown, containing a zynqmp_pmu BSP.<br />
+   - A psu_pmu_0 device icon is shown, containing a zynqmp_pmufw BSP.<br />
 10. Click the linux on psu_cortexa53 domain, browse to the locations and select the directory or file needed to complete the dialog box for the following:
 ```
 Linux Build Output:
@@ -379,11 +379,11 @@ Image:
 
 1. Download Vitis AI by calling command ```git clone https://github.com/Xilinx/Vitis-AI.git```.<br />
 2. Navigate to the repository:```cd Vitis-AI```, set the tag to proper tag(here we use ***v1.1***) by typing: ```git checkout v1.1```.<br />
-3. If you don't want to destroy the TRD reference design. Copy ***DPU-TRD*** folder into another directory. For example I would copy that into my ***zcu102_dpu_pkg*** foler: ```cp -r DPU-TRD ~/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/```<br />
+3. If you don't want to destroy the TRD reference design. Copy ***DPU-TRD*** folder into another directory. For example I would copy that into my ***zcu102_dpu_pkg*** folder: ```cp -r DPU-TRD ~/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/```<br />
 4. Source Vitis tools setting sh file: ```source <vitis install path>/Vitis/2019.2/settings64.sh```.<br />
 5. Source XRT sh file:```source opt/xilinx/xrt/setup.sh```.<br />
 6. Export SDX_PLATFORM with the directory of the custom platform xpfm file which you created before. Here in my project it would be: ```export SDX_PLATFORM=/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/zcu102_vai_custom/export/zcu102_vai_custom/zcu102_vai_custom.xpfm```. Remember now this custom platform name is ***zcu102_vai_custom***.<br />
-7. Navigate to the copy of the ***DPU-TRD*** folder, then go to the ***./prj/Vitis*** foler.<br />
+7. Navigate to the copy of the ***DPU-TRD*** folder, then go to the ***./prj/Vitis*** folder.<br />
 There are 2 files can be used to modify the DPU settings: The ***config_file/prj_config*** file is for DPU connection in Vitis project and the dpu_conf.vh is for other DPU configurations. Here we would modify the prj_config so that 2 DPU cores are enabled. And we would keep dpu_conf.vh in default.<br />
 8. Modify the ***config_file/prj_config*** like below:<br />
 ```
@@ -438,7 +438,7 @@ prop=run.impl_1.strategy=Performance_Explore
 14. Click on ***dpu_xrt_top*** and change the ***Compute Units*** from ```1``` to ```2``` because we have 2 dpu cores involved.<br />
 15. Right click on "dpu", select ***Edit V++ Options***, add ```--config ../src/prj_config -s``` as ***V++ Options***, then click ***OK***.<br />
 16. Go back to the ***Explorer*** window, right click on the ***hello_dpu*** project folder select ***C/C++ Building Settings**.<br />
-17. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Library***
+17. In ***Propery for Hello_DPU*** dialog box, select ***C/C++ Build->Settings->Tool Settings->GCC Host Linker->Libraries***
 , click the green "+" to add the following libraries:
 ```
 opencv_core
@@ -455,7 +455,7 @@ hineon
 ![vitis_include_settings.png](/pic_for_readme/vitis_include_settings.png)<br /><br />
 ***These steps are used to make sure your application can call libs in rootfs directly on Vitis appilcation build***
 20. The Vitis AI library and DNNDK are not included in PetaLinux SDK rootfs, now let's install them into the rootfs directory:<br />
-***Note:*** We should follow the section ***Setting Up the Host For Edge*** of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and section ***Setup cross-compiler for Vitis AI DNNDK and make samples*** of [DNNDK readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install the DNNDK. Most of the time I would suggest you to use a release tag when visting Github resource, but there are some critical modifications after v1.1 release. So I would just suggest you to refer to ***master*** branch this time. If you feel difficult to following the official guide there you can refer to the following ones. ***Please just skip these steps if you already install the libs refering to the readme files***:<br />
+***Note:*** We should follow the section ***Setting Up the Host For Edge*** of [Vitis AI library readme file](https://github.com/Xilinx/Vitis-AI/blob/master/Vitis-AI-Library/README.md) to install the Vitis AI library and section ***Setup cross-compiler for Vitis AI DNNDK and make samples*** of [DNNDK readme file](https://github.com/Xilinx/Vitis-AI/blob/master/mpsoc/README.md) to install the DNNDK. Most of the time I would suggest you to use a release tag when visting Github resource, but there are some critical modifications after v1.1 release. So I would just suggest you to refer to ***master*** branch this time. If you feel difficult to following the official guide there you can refer to the following ones. ***Please just skip these steps if you already install the libs referring to the readme files***:<br />
     a) Set the PetaLinux SDK environment by running command: ```. <full_pathname_to_zcu102_dpu_pkg>/pfm/environment-setup-aarch64-xilinx-linux```<br />
     b) Download the [vitis_ai_2019.2-r1.1.0.tar.gz](https://www.xilinx.com/bin/public/openDownload?filename=vitis_ai_2019.2-r1.1.0.tar.gz) to a particular directory(here we take ***~/Downloads*** as example) and install it to the roofs folder:<br />
     ```
