@@ -126,7 +126,7 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
    t) Connect the axi_intc_0/irq output to the Zynq UltraScale+ MPSoC pl_ps_irq0[0:0] input.<br />
    ![vivado_platform_connection.png](/pic_for_readme/vivado_platform_connection.png)<br /><br />
    u) Press and hold the ***Shift*** button on keyboard, then left click ***xlconstant_gnd*** and ***xlconcat_interrupt_0*** to select these 2 IPs. Release the ***Shift*** button, right click one of these 2 IPs, select ***Create Hierachy ...***, use ```interrupt_concat``` as ***Cell Name***.<br />
-   v) Click ***(+)*** to expand the ***interrupt_concat*** block, click the connection network between ***xlconstant_gnd*** and ***xlconcat_interrupt_0***, modify the ***System Network Property->Name*** to ```xlconstant_gnd_dout```.<br />
+   v) Click ***(+)*** to expand the ***interrupt_concat*** block, click the connection network between ***xlconstant_gnd*** and ***xlconcat_interrupt_0***, modify the ***System Network Properties->Name*** to ```xlconstant_gnd_dout```.<br />
    ![netname.png](/pic_for_readme/netname.png)<br /><br />
 ***Note: Now we have finished the IPI design input, let's set some platform parameters and generate the DSA***<br /><br /><br />
 
