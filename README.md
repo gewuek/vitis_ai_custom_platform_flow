@@ -144,7 +144,7 @@ You can provide kernel interrupt support by adding an AXI interrupt controller t
 7. Enable ***clk_200m***, ***clk_400m***, ***clk_100m*** of clk_wiz_0, set ***id*** of ***clk_200m*** to ```0```, set ***id*** of ***clk_400m*** to ```1```, set ***id*** of ***clk_100m*** to ```2```, enable ***is default*** for ***clk_200m***.<br />
 
 8. Create a ```xsa_gen``` folder inside your Vivado project.<br />
-9. Copy the [dynamic_postlink.tcl](https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_dpu/vivado/dynamic_postlink.tcl) file into that ***xsa_gen*** folder.<br />
+9. Copy the [dynamic_postlink.tcl](https://github.com/Xilinx/Vitis_Embedded_Platform_Source/blob/2019.2/Xilinx_Official_Platforms/zcu102_dpu/vivado/dynamic_postlink.tcl) file into that ***xsa_gen*** folder.<br />
 Or you can just find this file from any of the MPSoC official platform example.<br />
 10. Create a file named ```xsa.tcl``` inside the ***xsa_gen*** folder.<br />
 11. Copy the following commands into the xsa.tcl file and save the file.<br />
