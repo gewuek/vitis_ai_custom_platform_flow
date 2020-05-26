@@ -165,7 +165,7 @@ get_property platform.default_output_type [current_project]
 # Add the platform property to use dynamic_postlink.tcl during the v++ link
 set_property platform.post_sys_link_tcl_hook ./dynamic_postlink.tcl [current_project]
 ```
-12. In your Vivado project, use the ***Tcl console*** to navigate to the xsa_gen folder, and run ```source ./xsa.tcl``` command.
+12. In your Vivado project, use the ***Tcl console*** to ***navigate to the xsa_gen folder***, and run ```source ./xsa.tcl``` command.
 ![run_xsa_tcl.png](/pic_for_readme/run_xsa_tcl.png)<br /><br />
 13. Right-click and select ***Validate Design*** on ***IP integrator diagram***<br />
 14. Select the Zynq UltraScale+ MPSoC IP block and set ***SELECTED_SIM_MODEL*** to ```tlm``` in the Block Properties view.<br />
