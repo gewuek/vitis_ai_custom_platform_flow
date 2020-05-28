@@ -307,17 +307,16 @@ cd images/linux
 petalinux-build --sdk
 ```
 ***Note: We would store all the necessary files for Vitis platform creation flow. Here we name it ```zcu102_dpu_pkg ```. Then we create a pfm folder inside.***<br />
-15. Go back to ***<your_petalinux_dir>/images/linux*** and type ```./sdk.sh```, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
-16. Then install the Vitis AI library and DNNDK into this rootfs:<br />
-
-17. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
+17. Type ```./sdk.sh``` to install PetaLinux SDK, provide a full pathname to the output directory ***<full_pathname_to_zcu102_dpu_pkg>/pfm***(here in this example I use ***/home/wuxian/wu_project/vitis2019.2/vitis_custom_platform_flow/zcu102_dpu_pkg/pfm***) and confirm.<br />
+18. We would install Vitis AI library and DNNDK into this rootfs in the future.<br />
+19. After the PetaLinux build succeeds, the generated Linux software components are in the ***<your_petalinux_dir>/images/linux directory***. For our example, the ***images/linux*** directory contains the generated image and ELF files listed below. Copy these files to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory in preparation for running the Vitis platform creation flow:<br />
     - image.ub
     - zynqmp_fsbl.elf
     - pmufw.elf
     - bl31.elf
     - u-boot.elf
 
-18. Add a BIF file (linux.bif) to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
+20. Add a BIF file (linux.bif) to the ***<full_pathname_to_zcu102_dpu_pkg>/pfm/boot*** directory with the contents shown below. The file names should match the contents of the boot directory. The Vitis tool expands these pathnames relative to the sw directory of the platform at v++ link time or when generating an SD card. However, if the bootgen command is used directly to create a BOOT.BIN file from a BIF file, full pathnames in the BIF are necessary. Bootgen does not expand the names between the <> symbols.<br />
 ```
 /* linux */
  the_ROM_image:
