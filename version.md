@@ -1,4 +1,4 @@
-This design uses:<br /><br />
+This design uses:<br />
 Vivado 2019.2<br />
 PetaLinux 2019.2<br />
 Vitis 2019.2<br />
